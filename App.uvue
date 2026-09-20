@@ -1,194 +1,19 @@
 <script setup lang="uts">
-  import { state, updateGlobalData, setLifeCycleNum, checkSystemTheme } from '@/store/index.uts'
+  import { checkSystemTheme } from '@/store/index.uts'
   import { watchSystemLocale, syncRuntimeLocale } from '@/i18n.uts'
 
-  // ============================================================
-  // [正式项目] 本文件含演示工程专用逻辑，正式项目请按下面标注删除：
-  //   1. [演示专用] 自动化测试：setLifeCycleNum / increaseLifeCycleNum（配合 *.test.js）
-  //   2. [演示专用] 统计上报：uni.report(...) 各块（配合 main.uts 的 uniStat）
-  //   3. [示例]     scheme/ulink 直达：getRedirectUrl 及 onAppShow 内的调用
-  //   4. [示例]     隐私授权弹窗：onLaunch 内的 uni.getPrivacySetting
-  //   5. [演示专用] 全局样式测试：style 段的 .global-text / .global-box / .global-important-*
-  // ============================================================
-
-  // #ifdef APP-ANDROID || APP-HARMONY
-  let firstBackTime = 0
-  // #endif
-
-  onLaunch((res : OnLaunchOptions) => {
-    updateGlobalData('launchOptions', res)
-
-    // [演示专用·自动化测试]
-    setLifeCycleNum(state.lifeCycleNum + 1000)
-    console.log('App Launch')
-
-    // 页面性能分析
-      // const performance = uni.getPerformance()
-      // const observer1: PerformanceObserver = performance.createObserver(
-      //   (entryList: PerformanceObserverEntryList) => {
-      //     console.log('observer1:entryList.getEntries()' +JSON.stringify(entryList.getEntries()))
-      //   }
-      // )
-      // observer1.observe({
-      //   entryTypes: ['render', 'navigation'],
-      // } as PerformanceObserverOptions)
-      // [演示专用·统计上报] - 应用启动
-      // #ifdef APP-ANDROID || WEB || MP-WEIXIN || APP-HARMONY
-      uni.report({
-      	name: 'uni-app-launch',
-      	options: res,
-      	success(res_data) {
-      		console.log(res_data);
-      	}, fail(err) {
-      		console.log(err);
-      	}
-      })
-      // #endif
-      // #ifdef APP
-    // [示例·隐私弹窗] 正式项目按需保留/改写
-    if (process.env.NODE_ENV !== 'development') { //真机运行可以注释此条件
-      uni.getPrivacySetting({
-        success(res1){
-            if(res1.needAuthorization){
-              uni.openDialogPage({ url: '/examples/component/button/privacy' })
-            }
-        }
-      })
-    }
-    // #endif
-    // 获取系统主题
-    checkSystemTheme();
+  onLaunch((_res : OnLaunchOptions) => {
+    // 获取系统主题（用于卡片 / 文本暗色判断）
+    checkSystemTheme()
     // 跟随系统语言变化（初始语言在 i18n.uts 中已确定）
-    watchSystemLocale();
+    watchSystemLocale()
     // 同步运行时语言（pages.json 的 %key% 文案，Web 平台）
-    syncRuntimeLocale();
+    syncRuntimeLocale()
   })
 
-  // [示例·scheme/ulink 直达] 正式项目按需删除
-  const getRedirectUrl = (scheme : string | null, ulink : string | null) : string | null => {
-    //解析scheme或universal link启动直达页面：
-    //scheme格式：uniappx://redirect/examples/component/view/view?key=value  //其中redirect后为页面路径
-    //universal link格式：https://uniappx.dcloud.net.cn/ulink/redirect.html?url=%2Fpages%2Fcomponent%2Fview%2Fview%3Fkey%3Dvalue  //通用链接路径需固定，?后面的url参数为直达页面路径，注意url字段值需做url编码（可使用encodeURIComponent方法）
-    let url : string | null = null;
-    if (null != scheme && scheme.length > 0) {
-      const PATHPRE = 'redirect';
-      let parts : string | null = null;
-      let pos = scheme.search('//');
-      if (pos > 0) {
-        parts = scheme.substring(pos + 2);
-      }
-      if (null != parts && parts.startsWith(PATHPRE)) {
-        url = parts.substring(PATHPRE.length);
-      }
-    } else if (null != ulink && ulink.length > 0) {
-      const PATH = 'ulink/redirect.html';
-      let parts = ulink.split('?');
-      if (parts.length > 1 && parts[0].endsWith(PATH) && parts[1].length > 0) {
-        parts[1].split('&').forEach((e) => {
-          let params = e.split('=');
-          if (params.length > 1 && params[0].length > 0 && params[1].length > 0) {
-            if ('url' == params[0]) {
-              if (null == url) {
-                url = decodeURIComponent(params[1]);
-              }
-            }
-          }
-        });
-      }
-    }
-    return url;
-  }
-
-  onAppShow((res : OnShowOptions) => {
-    updateGlobalData('showOptions', res)
-
-    // 处理scheme或通用链接直达
-    let url = getRedirectUrl(res.appScheme, res.appLink);
-    if (null != url) {
-      uni.navigateTo({
-        url: url
-      })
-    }
-
-    // [演示专用·自动化测试]
-    setLifeCycleNum(state.lifeCycleNum + 100)
-    console.log('App Show')
-
-    // #ifdef APP-ANDROID || WEB || MP-WEIXIN || APP-HARMONY
-    // [演示专用·统计上报] - 应用显示
-    uni.report({
-    	name: 'uni-app-show',
-    	success(res_data) {
-    		console.log(res_data);
-    	}, fail(err) {
-    		console.log(err);
-    	}
-    })
-    // #endif
-  })
-  onAppHide(() => {
-    // [演示专用·自动化测试]
-    setLifeCycleNum(state.lifeCycleNum - 100)
-    console.log('App Hide')
-
-    // [演示专用·统计上报] - 应用进入后台
-    // #ifdef APP-ANDROID || WEB || MP-WEIXIN || APP-HARMONY
-    uni.report({
-    	name: 'uni-app-hide',
-    	success(res) {
-    		console.log(res);
-    	}, fail(err) {
-    		console.log(err);
-    	}
-    })
-    // #endif
-  })
-  // #ifdef APP-ANDROID || APP-HARMONY
-  onLastPageBackPress(() => {
-    // [演示专用·自动化测试]
-    setLifeCycleNum(state.lifeCycleNum - 1000)
-    console.log('App LastPageBackPress')
-    if (firstBackTime == 0) {
-      uni.showToast({
-        title: '再按一次退出应用',
-        position: 'bottom',
-      })
-      firstBackTime = Date.now()
-      setTimeout(() => {
-        firstBackTime = 0
-      }, 2000)
-    } else if (Date.now() - firstBackTime < 2000) {
-      firstBackTime = Date.now()
-      uni.exit()
-    }
-  })
-  onExit(() => {
-    console.log('App Exit')
-  })
-  // #endif
   onError((err : any) => {
-    console.log('App Error', err)
-    setLifeCycleNum(state.lifeCycleNum + 100)
-    // [演示专用·统计上报] - 应用发生错误
-    // #ifdef APP-ANDROID || WEB || MP-WEIXIN || APP-HARMONY
-    uni.report({
-    	name: 'uni-app-error',
-    	options: err,
-    	success(res) {
-    		console.log(res);
-    	}, fail(err) {
-    		console.log(err);
-    	}
-    })
-     // #endif
-  })
-  const increaseLifeCycleNum = () => {
-    setLifeCycleNum(state.lifeCycleNum + 100)
-    console.log('App increaseLifeCycleNum')
-  }
-
-  defineExpose({
-    increaseLifeCycleNum,
+    // 仅保留错误日志；演示专用统计上报 / 计数器已移除
+    console.error('App Error', err)
   })
 </script>
 
@@ -218,30 +43,4 @@
     --page-padding: 16px;
   }
   /* #endif */
-
-  /* [演示专用] 全局样式测试 - 验证是否会影响所有页面和组件，正式项目可删除 */
-  .global-text {
-  	color: #007AFF;
-  	font-size: 18px;
-  	font-weight: bold;
-  }
-
-  .global-box {
-  	background-color: #E1F5FF;
-  	padding: 10px;
-  	margin: 10px;
-  	border-radius: 8px;
-  	border: 2px solid #007AFF;
-  }
-
-  /* 全局样式使用!important覆盖组件样式 */
-  .global-important-class {
-    background-color: #c6deff !important;
-    border-color: #3d7cf5 !important;
-  }
-
-  .global-important-box {
-    background-color: #fff6c2 !important;
-    border: #fcdf02 solid 3px !important;
-  }
 </style>
