@@ -111,7 +111,12 @@
 ## 9. 开发与验证工作流
 
 - **编译/运行/发布只能在 HBuilderX 完成**（编译器在 HBuilderX 内，opencode 无法独立编译）。改完代码由用户在 HBuilderX 编译真机预览。
-- 自动化测试：页面级测试写在 `pages/**/*.test.js`（Node 侧），在 HBuilderX 中运行。新增页面如需截图对比测试，把页面地址加入 `pages/pages.test.js` 的 `pages` 变量（动态内容页除外）。
+- **自动化测试（已验证可用）**：页面级测试写在 `pages/**/*.test.js`（Jest + `program`/`page` 全局对象）。用 HBuilderX CLI 运行：
+  ```
+  /Applications/HBuilderX.app/Contents/MacOS/cli uniapp.test web-chrome --project <项目绝对路径> --testcaseFile pages/xxx/xxx.test.js --vapor true
+  ```
+  平台参数：`web-chrome` / `web-safari` / `mp-weixin` / `app-android` / `app-ios-simulator` / `app-harmony`。测试报告输出到 HBuilderX 的 `hbuilderx-for-uniapp-test` 目录。
+- 测试 API：`program.reLaunch(path)`、`page.$('.cls')`/`page.$$('.cls')`、`element.tap()`、`element.input('文本')`、`element.text()`、`page.data('data.xxx')`、`page.waitFor()`。断言错误直接反馈到测试输出，AI 据此修复迭代。
 - 提交约束：`git-hooks/check-commit.cjs` 禁止直接提交到 `master`/`alpha` 分支；开发请开特性分支。
 - 改 `manifest.json` / `pages.json` 时保持 JSON 合法（pages.json 内允许条件编译注释）。
 

@@ -19,3 +19,6 @@ npm-debug.log*
 
 # 临时
 .tmp/
+
+# 自动化测试运行器产物
+.hbuilderx/testCaseList.json
