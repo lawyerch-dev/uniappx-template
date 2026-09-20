@@ -1,6 +1,6 @@
 <script setup lang="uts">
   import { state, updateGlobalData, setLifeCycleNum, checkSystemTheme } from '@/store/index.uts'
-  import { initLocale, watchSystemLocale } from '@/i18n/index.uts'
+  import { watchSystemLocale, syncRuntimeLocale } from '@/i18n.uts'
 
   // ============================================================
   // [正式项目] 本文件含演示工程专用逻辑，正式项目请按下面标注删除：
@@ -58,9 +58,10 @@
     // #endif
     // 获取系统主题
     checkSystemTheme();
-    // 初始化多语言（优先用户选择，其次系统语言）
-    initLocale();
+    // 跟随系统语言变化（初始语言在 i18n.uts 中已确定）
     watchSystemLocale();
+    // 同步运行时语言（pages.json 的 %key% 文案，Web 平台）
+    syncRuntimeLocale();
   })
 
   // [示例·scheme/ulink 直达] 正式项目按需删除

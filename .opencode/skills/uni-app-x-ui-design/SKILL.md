@@ -47,6 +47,11 @@ Android / iOS / HarmonyOS 为**原生渲染**（无 DOM、无 WebView）；小�
 - `list-view` / `list-item`：`v-for` 必须带 `:key`；二者必须写在同一 `.uvue`；不支持横向滚动；`list-item` 宽度固定 100%；不支持 margin；文字必须包 `<text>`。
 - `flatten`：`view`/`text`/`image` 可加，但拍平后**不能有事件**、不支持部分 CSS（visibility / z-index / background-image / box-shadow inset 等）。不确定就不加。
 
+### 多语言与多主题（业务页必做，详见 AGENTS.md §8）
+- **文案**走 `t('key')`（内置 `vue-i18n`），**禁止硬编码**；词典在 `locale/*.json`。
+- **颜色**走 `var(--*)`，变量由 `common/uni.css` 的 `@media (prefers-color-scheme: light/dark)` 定义，**禁止硬编码颜色**。
+- 暗黑主题**用 `@media`**（HBuilderX 5.25+ 蒸汽模式 / Web / 小程序支持），不要用动态切 class；App 手动切换用 `uni.setAppTheme`。
+
 ## 二、Web 设计建议 → uni-app x 落地对照（重点）
 
 拿到通用 UI 技能的建议后，按此表转换，**不要照搬**：
@@ -60,7 +65,8 @@ Android / iOS / HarmonyOS 为**原生渲染**（无 DOM、无 WebView）；小�
 | `<a href>` 页面跳转 | `<navigator>` 或 `uni.navigateTo` |
 | CSS Grid | flex（或绝对定位） |
 | `vh` / `vw` / `rem` | `px` / `rpx` / `%` |
-| `@media` 响应式 | `uni.getWindowInfo()` 取宽度后用代码适配 |
+| `@media` 响应式（屏幕尺寸） | `uni.getWindowInfo()` 取宽度后用代码适配 |
+| `@media (prefers-color-scheme)` 暗黑模式 | **支持且推荐**（HBuilderX 5.25+ 蒸汽模式 / Web / 小程序） |
 | `@keyframes` 动画 | `UniElement.animate()`，或 `<swiper>` / `<movable-view>` |
 | `:hover` / `:focus` | `hover-class` 属性 |
 | CSS 变量 + class 切暗黑 | `uni.scss` / `theme.json` + `uni.onAppThemeChange`（见 `composables/useDark.uts`） |

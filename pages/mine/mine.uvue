@@ -1,6 +1,6 @@
 <template>
   <scroll-view style="flex: 1" :show-scrollbar="false">
-    <view class="uc" :class="darkModeClass">
+    <view class="uc">
       <!-- Hero -->
       <view class="uc__hero" :class="ready ? 'uc__hero--in' : ''">
         <view class="uc__blob uc__blob--a" id="uc-blob-a"></view>
@@ -84,13 +84,15 @@
             <view class="uc__chev"></view>
           </view>
         </view>
+        <!-- #ifdef APP -->
         <view class="uc__line" hover-class="uc__line--press" @click="chooseTheme()">
           <text class="uc__linelabel">{{ t('common.theme') }}</text>
           <view class="uc__lineval">
-            <text class="uc__linevaltext">{{ themeModeLabel(state.themeMode) }}</text>
+            <text class="uc__linevaltext">{{ themeModeLabel(currentAppTheme) }}</text>
             <view class="uc__chev"></view>
           </view>
         </view>
+        <!-- #endif -->
       </view>
 
       <!-- 菜单 -->
@@ -109,10 +111,10 @@
 </template>
 
 <script setup lang="uts">
-  import { t, locale, setLocale, localeOptions, localeLabel } from '@/composables/useI18n.uts'
-  import { LocaleType } from '@/i18n/index.uts'
-  import { darkModeClass } from '@/composables/useDark.uts'
-  import { state, setThemeMode } from '@/store/index.uts'
+  import { useI18n } from 'vue-i18n'
+  import { localeOptions, localeLabel, setAppLocale, LocaleType } from '@/i18n.uts'
+
+  const { t, locale } = useI18n()
 
   type StatItem = { key: string, labelKey: string, value: string, target: number }
   type OrderItem = { key: string, labelKey: string, glyphKey: string, cls: string, count: number }
@@ -155,6 +157,8 @@
     uni.showToast({ title: label, icon: 'none' })
   }
 
+  const themeModes : string[] = ['auto', 'light', 'dark']
+
   const themeModeLabel = (mode : string) : string => {
     if (mode == 'light') {
       return t('common.theme.light')
@@ -162,8 +166,10 @@
     if (mode == 'dark') {
       return t('common.theme.dark')
     }
-    return t('common.theme.system')
+    return t('common.theme.auto')
   }
+
+  const currentAppTheme = ref('auto')
 
   const chooseLocale = () : void => {
     const items : string[] = localeOptions.map((l : LocaleType) : string => localeLabel(l))
@@ -172,21 +178,25 @@
       success: (res) => {
         const idx = res.tapIndex
         if (idx >= 0 && idx < localeOptions.length) {
-          setLocale(localeOptions[idx])
+          setAppLocale(localeOptions[idx])
         }
       }
     })
   }
 
   const chooseTheme = () : void => {
-    const modes : string[] = ['system', 'light', 'dark']
-    const items : string[] = modes.map((m : string) : string => themeModeLabel(m))
+    const items : string[] = themeModes.map((m : string) : string => themeModeLabel(m))
     uni.showActionSheet({
       itemList: items,
       success: (res) => {
         const idx = res.tapIndex
-        if (idx >= 0 && idx < modes.length) {
-          setThemeMode(modes[idx])
+        if (idx >= 0 && idx < themeModes.length) {
+          // #ifdef APP
+          uni.setAppTheme({
+            theme: themeModes[idx] as 'light' | 'dark' | 'auto'
+          })
+          currentAppTheme.value = themeModes[idx]
+          // #endif
         }
       }
     })
@@ -211,6 +221,13 @@
   onReady(() => {
     ready.value = true
     startCount()
+
+    // #ifdef APP
+    currentAppTheme.value = uni.getAppBaseInfo().appTheme ?? 'auto'
+    uni.onAppThemeChange((res : AppThemeChangeResult) => {
+      currentAppTheme.value = res.appTheme
+    })
+    // #endif
 
     // 头像轻微浮动
     uni.getElementById('uc-avatar')?.animate([
@@ -238,8 +255,7 @@
   defineExpose({
     chooseLocale,
     chooseTheme,
-    setLocale,
-    setThemeMode
+    setAppLocale
   })
 </script>
 

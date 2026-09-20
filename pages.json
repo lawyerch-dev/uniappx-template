@@ -15,13 +15,23 @@
 		{
 			"path": "pages/index/index",
 			"style": {
+				// #ifdef WEB
+				"navigationBarTitleText": "%page.index.title%"
+				// #endif
+				// #ifndef WEB
 				"navigationBarTitleText": "首页"
+				// #endif
 			}
 		},
 		{
 			"path": "pages/mine/mine",
 			"style": {
+				// #ifdef WEB
+				"navigationBarTitleText": "%page.mine.title%"
+				// #endif
+				// #ifndef WEB
 				"navigationBarTitleText": "我的"
+				// #endif
 			}
 		},
 		{
@@ -3395,7 +3405,7 @@
 	],
 	"globalStyle": {
 		"pageOrientation": "auto",
-		"navigationBarTitleText": "my-app",
+		"navigationBarTitleText": "%app.name%",
 		"navigationBarTextStyle": "@navigationBarTextStyle",
 		"navigationBarBackgroundColor": "@navigationBarBackgroundColor",
 		// #ifndef MP-WEIXIN
@@ -3422,13 +3432,23 @@
 				"pagePath": "pages/index/index",
 				"iconPath": "static/component.png",
 				"selectedIconPath": "static/componentHL.png",
+				// #ifdef WEB
+				"text": "%tabbar.home%"
+				// #endif
+				// #ifndef WEB
 				"text": "首页"
+				// #endif
 			},
 			{
 				"pagePath": "pages/mine/mine",
 				"iconPath": "static/template.png",
 				"selectedIconPath": "static/templateHL.png",
+				// #ifdef WEB
+				"text": "%tabbar.mine%"
+				// #endif
+				// #ifndef WEB
 				"text": "我的"
+				// #endif
 			}
 		]
 	},

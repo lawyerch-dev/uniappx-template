@@ -58,8 +58,6 @@ type State = {
   allowCapture: boolean,
   // 是否暗黑主题（适配web端）
   isDarkMode: boolean
-  // 主题模式：system 跟随系统 / light 浅色 / dark 深色
-  themeMode: string
   // 是否无网环境
   netless: boolean,
   // 登录用户信息
@@ -75,16 +73,6 @@ const getAgreePrivacy = () => {
     return null
   }
     return null
-}
-
-export const THEME_MODE_KEY = 'theme-mode'
-
-const getThemeMode = () : string => {
-  const saved = uni.getStorageSync(THEME_MODE_KEY)
-  if (typeof saved == 'string' && (saved as string).length > 0) {
-    return saved as string
-  }
-  return 'system'
 }
 
 export const state = reactive({
@@ -129,7 +117,6 @@ export const state = reactive({
   agreeToPrivacy: getAgreePrivacy(),
   allowCapture: true,
   isDarkMode:false,
-  themeMode: getThemeMode(),
   netless: false,
   userInfo: null
 } as State)
@@ -179,49 +166,27 @@ export const setAllowCapture = (allow: boolean) => {
   state.allowCapture = allow
 }
 
-// 检查系统主题（仅在"跟随系统"模式下生效）
+// 检查系统主题
 export const checkSystemTheme = () => {
   // #ifdef WEB || MP-WEIXIN
   const info = uni.getAppBaseInfo();
-  if (state.themeMode == 'system') {
-    state.isDarkMode = info.hostTheme === 'dark';
-  }
+  state.isDarkMode = info.hostTheme === 'dark';
   uni.onHostThemeChange((result) => {
-    if (state.themeMode == 'system') {
-      state.isDarkMode = result.hostTheme === 'dark';
-    }
+    state.isDarkMode = result.hostTheme === 'dark';
   });
   // #endif
   // web和小程序只支持监听宿主的主题，不支持自行设置与宿主不同的主题。但App端支持自行设置主题，因此单独处理
   // #ifdef APP
   uni.getSystemInfo({
     success: (res : GetSystemInfoResult) => {
-      if (state.themeMode != 'system') {
-        return
-      }
       const appTheme = res.appTheme == "auto" ? res.osTheme! : res.appTheme!
       state.isDarkMode = appTheme == 'dark';
     }
   })
   uni.onAppThemeChange((res : AppThemeChangeResult) => {
-    if (state.themeMode == 'system') {
-      state.isDarkMode = res.appTheme == 'dark';
-    }
+    state.isDarkMode = res.appTheme == 'dark';
   })
   // #endif
-}
-
-// 设置主题模式：system 跟随系统 / light 浅色 / dark 深色
-export const setThemeMode = (mode : string) : void => {
-  state.themeMode = mode
-  uni.setStorageSync(THEME_MODE_KEY, mode)
-  if (mode == 'light') {
-    state.isDarkMode = false
-  } else if (mode == 'dark') {
-    state.isDarkMode = true
-  } else {
-    checkSystemTheme()
-  }
 }
 
 export const setNetless = (netless: boolean) => {

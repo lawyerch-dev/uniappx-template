@@ -1,4 +1,10 @@
-/* 主题变量 */
+/* ============================================================
+ * 主题变量
+ * - .theme-light / .theme-dark：老版"动态切 class"方案（示例页在用）
+ * - @media (prefers-color-scheme)：官方推荐方案，自动跟随 hostTheme / appTheme，
+ *   业务页面无需切 class。文档：https://doc.dcloud.net.cn/uni-app-x/api/theme-change.html
+ * ============================================================ */
+
 .theme-light {
 	--list-background-color: #ffffff;
 	--background-color: #f8f8f8;
@@ -7,22 +13,6 @@
 	--text-color: #333333;
 	--arrow-color: #999999;
 	--border-color: rgba(0, 0, 0, .06);
-
-	/* ---- 业务语义变量（新业务页面统一用这些）---- */
-	--page-bg: #f3f4fa;
-	--card-bg: #ffffff;
-	--card-border: rgba(15, 23, 42, 0.06);
-	--text-primary: #1f2430;
-	--text-secondary: #6b7280;
-	--text-tertiary: #9ca3af;
-	--divider: rgba(15, 23, 42, 0.06);
-	--chip-bg: #f1f2f8;
-	--accent: #6d5bff;
-	--accent-soft: rgba(109, 91, 255, 0.12);
-	--hero-from: #6d5bff;
-	--hero-mid: #8b5cf6;
-	--hero-to: #4f8dfd;
-	--shadow-color: rgba(79, 70, 229, 0.14);
 }
 
 .theme-dark {
@@ -33,22 +23,45 @@
 	--text-color: #ffffff;
 	--arrow-color: #ffffff;
 	--border-color: rgba(255, 255, 255, 0.1);
+}
 
-	/* ---- 业务语义变量（新业务页面统一用这些）---- */
-	--page-bg: #14151c;
-	--card-bg: #1e2029;
-	--card-border: rgba(255, 255, 255, 0.08);
-	--text-primary: #f2f3f7;
-	--text-secondary: #9aa0ad;
-	--text-tertiary: #6b7280;
-	--divider: rgba(255, 255, 255, 0.08);
-	--chip-bg: #262835;
-	--accent: #8b7dff;
-	--accent-soft: rgba(139, 125, 255, 0.18);
-	--hero-from: #4b3fd6;
-	--hero-mid: #6d4fd6;
-	--hero-to: #3a6fd6;
-	--shadow-color: rgba(0, 0, 0, 0.45);
+/* ---- 业务语义变量：媒体查询方案（业务页面统一用这些）---- */
+@media (prefers-color-scheme: light) {
+	page {
+		--page-bg: #f3f4fa;
+		--card-bg: #ffffff;
+		--card-border: rgba(15, 23, 42, 0.06);
+		--text-primary: #1f2430;
+		--text-secondary: #6b7280;
+		--text-tertiary: #9ca3af;
+		--divider: rgba(15, 23, 42, 0.06);
+		--chip-bg: #f1f2f8;
+		--accent: #6d5bff;
+		--accent-soft: rgba(109, 91, 255, 0.12);
+		--hero-from: #6d5bff;
+		--hero-mid: #8b5cf6;
+		--hero-to: #4f8dfd;
+		--shadow-color: rgba(79, 70, 229, 0.14);
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	page {
+		--page-bg: #14151c;
+		--card-bg: #1e2029;
+		--card-border: rgba(255, 255, 255, 0.08);
+		--text-primary: #f2f3f7;
+		--text-secondary: #9aa0ad;
+		--text-tertiary: #6b7280;
+		--divider: rgba(255, 255, 255, 0.08);
+		--chip-bg: #262835;
+		--accent: #8b7dff;
+		--accent-soft: rgba(139, 125, 255, 0.18);
+		--hero-from: #4b3fd6;
+		--hero-mid: #6d4fd6;
+		--hero-to: #3a6fd6;
+		--shadow-color: rgba(0, 0, 0, 0.45);
+	}
 }
 
 .uni-h1 {

@@ -1,6 +1,6 @@
 <template>
   <scroll-view style="flex: 1">
-    <view class="home" :class="darkModeClass">
+    <view class="home">
       <text class="home__title">{{ t('home.title') }}</text>
       <text class="home__desc">{{ t('home.desc') }}</text>
 
@@ -13,8 +13,9 @@
 </template>
 
 <script setup lang="uts">
-  import { t } from '@/composables/useI18n.uts'
-  import { darkModeClass } from '@/composables/useDark.uts'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   const openExamples = (): void => {
     uni.navigateTo({

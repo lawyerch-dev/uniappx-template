@@ -1,0 +1,61 @@
+{
+  "app.name": "My App",
+
+  "tabbar.home": "Home",
+  "tabbar.mine": "Mine",
+
+  "page.index.title": "Home",
+  "page.mine.title": "Profile",
+
+  "home.title": "My App",
+  "home.desc": "Business home. The official examples have been archived under examples/ and can be opened on demand.",
+  "home.devref": "Developer Reference",
+  "home.btn.examples": "View Official Examples",
+
+  "mine.title": "Profile",
+  "mine.sign": "May you travel far and still be young at heart",
+  "mine.stat.following": "Following",
+  "mine.stat.followers": "Followers",
+  "mine.stat.likes": "Likes",
+
+  "mine.order.title": "My Orders",
+  "mine.order.all": "All Orders",
+  "mine.order.pay": "To Pay",
+  "mine.order.send": "To Ship",
+  "mine.order.receive": "To Receive",
+  "mine.order.rate": "To Review",
+
+  "mine.service.title": "Services",
+  "mine.service.fav": "Favorites",
+  "mine.service.history": "History",
+  "mine.service.coupon": "Coupons",
+  "mine.service.points": "Points Mall",
+  "mine.service.address": "Addresses",
+  "mine.service.support": "Support",
+  "mine.service.settings": "Settings",
+  "mine.service.more": "More",
+
+  "mine.menu.member": "Membership",
+  "mine.menu.help": "Help & Feedback",
+  "mine.menu.about": "About Us",
+
+  "common.language": "Language",
+  "common.theme": "Theme",
+  "common.theme.auto": "System",
+  "common.theme.light": "Light",
+  "common.theme.dark": "Dark",
+  "common.toast.placeholder": "Coming soon",
+
+  "mine.order.pay.glyph": "P",
+  "mine.order.send.glyph": "S",
+  "mine.order.receive.glyph": "R",
+  "mine.order.rate.glyph": "V",
+  "mine.service.fav.glyph": "F",
+  "mine.service.history.glyph": "H",
+  "mine.service.coupon.glyph": "C",
+  "mine.service.points.glyph": "P",
+  "mine.service.address.glyph": "A",
+  "mine.service.support.glyph": "S",
+  "mine.service.settings.glyph": "G",
+  "mine.service.more.glyph": "M"
+}

@@ -4,6 +4,7 @@
 	"description": "我的 uni-app x 应用",
 	"versionName": "1.0.0",
 	"versionCode": 100,
+	"locale": "auto",
 	"uni-app-x": {
 		"vapor": true,
 		"styleIsolationVersion": "2",
@@ -37,6 +38,7 @@
 		}
 	},
 	"app": {
+		"defaultAppTheme": "auto",
 		"distribute": {
 			"modules": {
 				"uni-ad": {

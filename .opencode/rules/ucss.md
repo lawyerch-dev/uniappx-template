@@ -24,9 +24,9 @@ ucss是css的子集，但可以跨平台使用。除了浏览器之外，还支�
 - 除非长度单位需要根据父容器大小而变化才使用百分比单位。其他场景不使用rpx单位。
 
 ## at-rules
-- 仅支持`@font-face`、`@import`，不使用其他at-rules。
-- 如需使用`@media` 适配不同屏幕，改用 uts 代码实现，先通过API `uni.getWindowInfo`获取屏幕宽度， 再通过代码进行适配。
-- 如需使用`@media` 适配暗黑模式， 改用 uts 代码 和 css变量 实现。
+- 支持 `@font-face`、`@import`、`@media (prefers-color-scheme: light|dark)`（暗黑主题适配）。
+- **暗黑主题优先用 `@media (prefers-color-scheme: light/dark)`**（HBuilderX 5.25+ 蒸汽模式 / Web / 小程序均支持），自动跟随 hostTheme/appTheme，无闪烁。详见 https://doc.dcloud.net.cn/uni-app-x/api/theme-change.html
+- 如需使用`@media` 适配不同屏幕尺寸，改用 uts 代码实现，先通过API `uni.getWindowInfo`获取屏幕宽度， 再通过代码进行适配。
 - 如需使用`@keyframes`，改为通过UniElement对象的animate方法实现相同逻辑。
 
 ## css function

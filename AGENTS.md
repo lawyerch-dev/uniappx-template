@@ -102,25 +102,27 @@
 
 **`pages/` 下的业务页面默认必须同时支持多语言（i18n）与多主题（深/浅色）。** 示例页（`examples/`）不在此约束内。
 
-### 多语言
+### 多语言（官方 vue-i18n）
 - 文案统一走 `t('key')`，**禁止硬编码中文/英文**。
-- 入口：`import { t, locale, setLocale, localeOptions, localeLabel } from '@/composables/useI18n.uts'`
-- 词典：`i18n/zhHans.uts`、`i18n/zhHant.uts`、`i18n/en.uts`；新增语言需同时在 `i18n/index.uts` 的 `localeOptions` 登记。
-- `App.uvue` 启动时已调用 `initLocale()` + `watchSystemLocale()`；语言优先级：用户选择（storage）> 系统语言。
-- 需提供语言切换入口（如"我的"页设置行，用 `uni.showActionSheet`）。
-- **不要用 vue-i18n**（uni-app x 不支持）。
+- 词典：`locale/zh-Hans.json`、`locale/zh-Hant.json`、`locale/en.json`（同时供 pages.json 的 `%key%` 占位）。
+- 初始化：`i18n.uts`（`createI18n`）→ `main.uts` 里 `app.use(i18n)`。
+- 页面用法：`import { useI18n } from 'vue-i18n'`，`const { t, locale } = useI18n()`。
+- 切换：`setAppLocale(l)`（`@/i18n.uts`，含持久化）；`App.uvue` 已调用 `watchSystemLocale()`。
+- `pages.json` 文案（`navigationBarTitleText`、`tabBar.list.text`）：**Web 平台用 `"%key%"` 占位**；App/小程序不支持，需用 `uni.setNavigationBarTitle` / `uni.setTabBarItem` 运行时设置。
+- 文档：https://doc.dcloud.net.cn/uni-app-x/i18n.html
 
-### 多主题
-- 页面根容器必须带主题 class：`:class="darkModeClass"`（来自 `@/composables/useDark.uts`）。
-- 颜色一律用 `common/uni.css` 的语义变量，**禁止硬编码颜色**：
+### 多主题（官方推荐 @media）
+- **优先用 `@media (prefers-color-scheme: light/dark)`**（HBuilderX 5.25+ 蒸汽模式 / Web / 小程序均支持），自动跟随 hostTheme/appTheme，**无需切 class、无闪烁**。
+- 语义变量定义在 `common/uni.css` 的 `@media` 块中（`page` 选择器），页面直接用 `var(--*)`，**禁止硬编码颜色**：
   `--page-bg` `--card-bg` `--card-border` `--text-primary` `--text-secondary` `--text-tertiary` `--divider` `--chip-bg` `--accent` `--accent-soft` `--hero-from/--hero-mid/--hero-to` `--shadow-color`
-- 切换：`setThemeMode('system' | 'light' | 'dark')`（`@/store/index.uts`），`App.uvue` 的 `checkSystemTheme()` 已按模式生效。
-- 新增语义变量时，`.theme-light` 与 `.theme-dark` **两套都要补齐**。
+- App 端手动切换：`uni.setAppTheme({ theme: 'light' | 'dark' | 'auto' })`（Web/小程序不支持，跟随宿主）；`manifest.json` 已配 `app.defaultAppTheme: "auto"`。
+- `pages.json` 的 tabBar/导航栏颜色走 `theme.json`（`@变量` 引用）。
+- 老版动态 class 方案（`.theme-light`/`.theme-dark`）仅为兼容示例页保留，**新页面不要用**。
+- 文档：https://doc.dcloud.net.cn/uni-app-x/api/theme-change.html
 
 ### 自检
 - [ ] 页面无硬编码文案（全走 `t()`）
 - [ ] 页面无硬编码颜色（全走 `var(--*)`）
-- [ ] 根容器带 `:class="darkModeClass"`
 - [ ] 深色 + 浅色、中文 + 英文下均正常
 
 ## 9. 反模式清单（禁止项）

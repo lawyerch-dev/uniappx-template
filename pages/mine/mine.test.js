@@ -19,52 +19,33 @@ describe('mine-profile', () => {
     const services = await page.$$('.uc__gitem')
     expect(services.length).toBeGreaterThanOrEqual(8)
 
-    // 设置(语言/主题) + 菜单(3) = 5 行
+    // 语言行 + 菜单 3 行 = 4 行（主题行仅 App 显示）
     const lines = await page.$$('.uc__line')
-    expect(lines.length).toBeGreaterThanOrEqual(5)
+    expect(lines.length).toBeGreaterThanOrEqual(4)
   })
 
-  it('language / theme rows show current values', async () => {
+  it('language row shows current locale', async () => {
     const vals = await page.$$('.uc__linevaltext')
-    expect(vals.length).toBeGreaterThanOrEqual(2)
+    expect(vals.length).toBeGreaterThanOrEqual(1)
     expect((await vals[0].text()).length).toBeGreaterThan(0)
-    expect((await vals[1].text()).length).toBeGreaterThan(0)
   })
 
   it('switching locale updates text', async () => {
     const title = await page.$('.uc__bar-title')
 
-    await page.callMethod('setLocale', 'zh-Hans')
+    await page.callMethod('setAppLocale', 'zh-Hans')
     await page.waitFor(400)
-    const zh = await title.text()
-    expect(zh).toBe('个人中心')
+    expect(await title.text()).toBe('个人中心')
 
-    await page.callMethod('setLocale', 'en')
+    await page.callMethod('setAppLocale', 'en')
     await page.waitFor(400)
-    const en = await title.text()
-    expect(en).toBe('Profile')
-    expect(en).not.toBe(zh)
+    expect(await title.text()).toBe('Profile')
 
-    await page.callMethod('setLocale', 'zh-Hant')
+    await page.callMethod('setAppLocale', 'zh-Hant')
     await page.waitFor(400)
     expect(await title.text()).toBe('個人中心')
 
-    await page.callMethod('setLocale', 'zh-Hans')
-    await page.waitFor(300)
-  })
-
-  it('switching theme toggles root class', async () => {
-    const root = await page.$('.uc')
-
-    await page.callMethod('setThemeMode', 'dark')
-    await page.waitFor(400)
-    expect(await root.attribute('class')).toContain('theme-dark')
-
-    await page.callMethod('setThemeMode', 'light')
-    await page.waitFor(400)
-    expect(await root.attribute('class')).toContain('theme-light')
-
-    await page.callMethod('setThemeMode', 'system')
+    await page.callMethod('setAppLocale', 'zh-Hans')
     await page.waitFor(300)
   })
 })
