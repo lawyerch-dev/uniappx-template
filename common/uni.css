@@ -418,3 +418,18 @@ page {
 .margin-10{
   margin: 10px;
 }
+
+/* ------------------------------------------------------------
+ * 修复：uni-app x H5 端在 .uni-app--showtabbar 下会给
+ *   uni-page-body::after 硬撑 var(--tab-bar-height) 的占位（默认 50px），
+ *   用于避开底部 fixed tabbar。
+ *   但本项目使用 uni-top-window 顶部 tabbar（pages.json topWindow），
+ *   底部没有 fixed tabbar（uni-tabbar.uni-tabbar-bottom 在视口外），
+ *   这个占位就成了底部的"空白灰带"。
+ *   改用顶部 tabbar 时直接清掉；若以后切回底部 tabbar，需移除本规则。
+ * ------------------------------------------------------------ */
+uni-app.uni-app--showtabbar uni-page-body::after {
+  height: 0;
+  min-height: 0;
+  content: none;
+}
