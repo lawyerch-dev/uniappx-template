@@ -2,11 +2,7 @@
   "$schema": "https://opencode.ai/config.json",
   "instructions": [
     "AGENTS.md",
-    ".opencode/rules/uvue.md",
-    ".opencode/rules/ucss.md",
-    ".opencode/rules/conditional-compilation.md",
-    ".opencode/rules/api.md",
-    ".opencode/rules/uni-app-x-best-practices.md"
+    ".opencode/rules/core-protocol.md"
   ],
   "mcp": {
     "uni-app-x": {
