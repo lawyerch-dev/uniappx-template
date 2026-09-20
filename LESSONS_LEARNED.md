@@ -21,3 +21,20 @@
 - **测试会临时改 `env.js` 和 `jest.config.js` 的 testMatch**，跑完注意 git diff 清理。
 - **页面文本断言坑**：`.ai-demo__hint` 实际文本是 `计算属性（翻倍）：0`，含全角括号，断言要写完整子串。
 - **DEBUG=automator:\*** 会输出海量协议日志，AI 调用时建议关掉。
+
+## 2026-09-20 国际化 / 主题对齐官方文档（DoD 已验证）
+
+- **uni-app x 内置 `vue-i18n`**（HBuilderX 5.25+，本机为 9.1.9）：`locale/*.json` + `i18n.uts`(`createI18n`) + `main.uts` 里 `app.use(i18n)`，页面用 `useI18n()`。**不要自建 i18n**。文档：https://doc.dcloud.net.cn/uni-app-x/i18n.html
+- **暗黑主题优先用 `@media (prefers-color-scheme: light/dark)`**（HBuilderX 5.25+ 蒸汽模式 / Web / 小程序），自动跟随 hostTheme/appTheme，无需切 class。动态切 class 是官方称的"老版兼容方案"，有闪烁。文档：https://doc.dcloud.net.cn/uni-app-x/api/theme-change.html
+- **App 手动切主题用 `uni.setAppTheme({theme:'light'|'dark'|'auto'})`**（Web/小程序不支持，跟随宿主）；manifest 配 `app.defaultAppTheme: "auto"`。
+- **pages.json 文案国际化**：Web 平台支持 `navigationBarTitleText` / `tabBar.list.text` 用 `"%key%"` 占位（key 来自 `locale/*.json`）；**App/小程序不支持**，需运行时 `uni.setNavigationBarTitle` / `uni.setTabBarItem`。
+  - ⚠️ **`%key%` 不解析时先查 `manifest.json` 的 `locale` 字段**（作为 fallbackLocale，为空会导致导航栏标题保持 `%key%` 字面量）。Web 端用 `uni.setLocale()` 同步运行时语言，保证页面内容（vue-i18n）与 tabBar/导航栏一致。
+- ⚠️ **pages.json 条件编译写法**：必须"基础值 + 条件逗号 + 覆盖值"，使 JSON 在**裁剪前后都合法**；否则 HBuilderX 报 `Expected '}' and instead saw 'xxx'`：
+  ```json
+  "navigationBarTitleText": "首页"
+  // #ifdef WEB
+  ,
+  "navigationBarTitleText": "%page.index.title%"
+  // #endif
+  ```
+- ⚠️ **浏览器 Service Worker 会缓存旧构建**：dev server 已更新但页面仍是旧版时，先 `navigator.serviceWorker.getRegistrations()` 注销 + 清 `caches`，再硬刷新。
