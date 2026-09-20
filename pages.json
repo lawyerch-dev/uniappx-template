@@ -3395,7 +3395,7 @@
 	],
 	"globalStyle": {
 		"pageOrientation": "auto",
-		"navigationBarTitleText": "Hello uniapp x",
+		"navigationBarTitleText": "my-app",
 		"navigationBarTextStyle": "@navigationBarTextStyle",
 		"navigationBarBackgroundColor": "@navigationBarBackgroundColor",
 		// #ifndef MP-WEIXIN
