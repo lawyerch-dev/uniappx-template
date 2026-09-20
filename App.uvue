@@ -1,6 +1,15 @@
 <script setup lang="uts">
   import { state, updateGlobalData, setLifeCycleNum, checkSystemTheme } from '@/store/index.uts'
 
+  // ============================================================
+  // [正式项目] 本文件含演示工程专用逻辑，正式项目请按下面标注删除：
+  //   1. [演示专用] 自动化测试：setLifeCycleNum / increaseLifeCycleNum（配合 *.test.js）
+  //   2. [演示专用] 统计上报：uni.report(...) 各块（配合 main.uts 的 uniStat）
+  //   3. [示例]     scheme/ulink 直达：getRedirectUrl 及 onAppShow 内的调用
+  //   4. [示例]     隐私授权弹窗：onLaunch 内的 uni.getPrivacySetting
+  //   5. [演示专用] 全局样式测试：style 段的 .global-text / .global-box / .global-important-*
+  // ============================================================
+
   // #ifdef APP-ANDROID || APP-HARMONY
   let firstBackTime = 0
   // #endif
@@ -8,7 +17,7 @@
   onLaunch((res : OnLaunchOptions) => {
     updateGlobalData('launchOptions', res)
 
-    // 自动化测试
+    // [演示专用·自动化测试]
     setLifeCycleNum(state.lifeCycleNum + 1000)
     console.log('App Launch')
 
@@ -22,7 +31,7 @@
       // observer1.observe({
       //   entryTypes: ['render', 'navigation'],
       // } as PerformanceObserverOptions)
-      // 统计上报 - 应用启动
+      // [演示专用·统计上报] - 应用启动
       // #ifdef APP-ANDROID || WEB || MP-WEIXIN || APP-HARMONY
       uni.report({
       	name: 'uni-app-launch',
@@ -35,6 +44,7 @@
       })
       // #endif
       // #ifdef APP
+    // [示例·隐私弹窗] 正式项目按需保留/改写
     if (process.env.NODE_ENV !== 'development') { //真机运行可以注释此条件
       uni.getPrivacySetting({
         success(res1){
@@ -49,6 +59,7 @@
     checkSystemTheme();
   })
 
+  // [示例·scheme/ulink 直达] 正式项目按需删除
   const getRedirectUrl = (scheme : string | null, ulink : string | null) : string | null => {
     //解析scheme或universal link启动直达页面：
     //scheme格式：uniappx://redirect/examples/component/view/view?key=value  //其中redirect后为页面路径
@@ -94,12 +105,12 @@
       })
     }
 
-    // 自动化测试
+    // [演示专用·自动化测试]
     setLifeCycleNum(state.lifeCycleNum + 100)
     console.log('App Show')
 
     // #ifdef APP-ANDROID || WEB || MP-WEIXIN || APP-HARMONY
-    // 统计上报 - 应用显示
+    // [演示专用·统计上报] - 应用显示
     uni.report({
     	name: 'uni-app-show',
     	success(res_data) {
@@ -111,11 +122,11 @@
     // #endif
   })
   onAppHide(() => {
-    // 自动化测试
+    // [演示专用·自动化测试]
     setLifeCycleNum(state.lifeCycleNum - 100)
     console.log('App Hide')
 
-    // 统计上报 - 应用进入后台
+    // [演示专用·统计上报] - 应用进入后台
     // #ifdef APP-ANDROID || WEB || MP-WEIXIN || APP-HARMONY
     uni.report({
     	name: 'uni-app-hide',
@@ -129,7 +140,7 @@
   })
   // #ifdef APP-ANDROID || APP-HARMONY
   onLastPageBackPress(() => {
-    // 自动化测试
+    // [演示专用·自动化测试]
     setLifeCycleNum(state.lifeCycleNum - 1000)
     console.log('App LastPageBackPress')
     if (firstBackTime == 0) {
@@ -153,7 +164,7 @@
   onError((err : any) => {
     console.log('App Error', err)
     setLifeCycleNum(state.lifeCycleNum + 100)
-    // 统计上报 - 应用发生错误
+    // [演示专用·统计上报] - 应用发生错误
     // #ifdef APP-ANDROID || WEB || MP-WEIXIN || APP-HARMONY
     uni.report({
     	name: 'uni-app-error',
@@ -203,7 +214,7 @@
   }
   /* #endif */
 
-  /* 全局样式测试 - 验证是否会影响所有页面和组件 */
+  /* [演示专用] 全局样式测试 - 验证是否会影响所有页面和组件，正式项目可删除 */
   .global-text {
   	color: #007AFF;
   	font-size: 18px;

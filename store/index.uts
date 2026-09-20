@@ -1,3 +1,11 @@
+// ============================================================
+// [正式项目] 本文件为演示工程的全局状态，含若干演示专用字段，正式项目请按标注清理：
+//   - [演示专用] globalData：兼容 dom2 的 app global data（示例演示用）
+//   - [演示专用] lifeCycleNum / eventCallbackNum：自动化测试计数
+//   - [演示专用] noMatchLeftWindow / active / leftWinActive：PC 分栏与示例目录 tab
+//   - [示例]     agreeToPrivacy / allowCapture / netless / userInfo：隐私、截屏、无网、登录示例
+//   - [保留]     statusBarHeight / safeArea / devicePixelRatio / isDarkMode：通用，建议保留
+// ============================================================
 export type SafeArea = {
   top : number,
   right : number,
