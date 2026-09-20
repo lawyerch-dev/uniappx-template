@@ -1,9 +1,9 @@
 {
-	"name": "uni-app-x",
+	"name": "my-app",
 	"appid": "__UNI__E06030B",
-	"description": "",
-	"versionName": "2.2.3",
-	"versionCode": 20203,
+	"description": "我的 uni-app x 应用",
+	"versionName": "1.0.0",
+	"versionCode": 100,
 	"uni-app-x": {
 		"vapor": true,
 		"styleIsolationVersion": "2",
@@ -47,7 +47,7 @@
 	},
 	"app-harmony": {
 		"distribute": {
-			"bundleName": "io.dcloud.uniappx",
+			"bundleName": "com.example.myapp",
 			"modules": {
 				"uni-payment": {
 					"alipay": {},
@@ -64,15 +64,15 @@
 				"uni-facialVerify": {},
 				"uni-oauth": {
 					"huawei": {
-						"client_id": "6917567445824957002"
+						"client_id": ""
 					},
 					"weixin": {
-						"appid": "wxd1b990d3136e369c"
+						"appid": ""
 					}
 				},
 				"uni-share": {
 					"weixin": {
-						"appid": "wxd1b990d3136e369c"
+						"appid": ""
 					}
 				}
 			},
