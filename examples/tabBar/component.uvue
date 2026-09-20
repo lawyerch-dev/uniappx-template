@@ -3,6 +3,7 @@
   <scroll-view style="flex: 1;" enable-back-to-top="true">
     <!-- #endif -->
     <view class="uni-container" :class="isDarkMode ? 'theme-dark' : 'theme-light'">
+      <category-tabs v-if="!hasLeftWin" :active-index="0" />
       <view v-if="!hasLeftWin" class="uni-header-logo">
         <image class="uni-header-image" src="/static/componentIndex.png"></image>
       </view>
@@ -63,6 +64,7 @@
   const instance = getCurrentInstance()!.proxy!
 
   import { generateMenu, MenuItem } from './generateMenu.uts'
+  import CategoryTabs from './category-tabs.uvue'
   const menuData = generateMenu('examples/component')
   // #ifdef APP
   import checkUpdate from '@/uni_modules/uni-upgrade-center-app/utils/check-update'

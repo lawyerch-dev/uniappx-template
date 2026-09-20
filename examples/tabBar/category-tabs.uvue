@@ -1,0 +1,81 @@
+<template>
+  <view class="category-tabs" :class="isDarkMode ? 'category-tabs--dark' : ''">
+    <view class="category-tabs__item" v-for="(item, index) in categories" :key="item.path" @click="onSelect(index)">
+      <text class="category-tabs__text" :class="index === activeIndex ? 'category-tabs__text--active' : ''">{{ item.name }}</text>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  import { state } from '@/store/index.uts'
+
+  type CategoryTab = {
+    name: string
+    path: string
+  }
+
+  const props = defineProps({
+    activeIndex: { type: Number, default: 0 }
+  })
+
+  const categories : CategoryTab[] = [
+    { name: '组件', path: '/examples/tabBar/component' },
+    { name: '接口', path: '/examples/tabBar/API' },
+    { name: 'CSS', path: '/examples/tabBar/CSS' },
+    { name: 'uni-ui', path: '/examples/tabBar/uni-ui' },
+    { name: '模板', path: '/examples/tabBar/template' }
+  ]
+
+  const isDarkMode = computed((): boolean => {
+    return state.isDarkMode
+  })
+
+  const onSelect = (index : number): void => {
+    if (index === props.activeIndex) {
+      return
+    }
+    uni.redirectTo({
+      url: categories[index].path
+    })
+  }
+
+  defineExpose({
+    onSelect
+  })
+</script>
+
+<style>
+  .category-tabs {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: #ffffff;
+    border-bottom-width: 0.5px;
+    border-bottom-style: solid;
+    border-bottom-color: #eeeeee;
+  }
+
+  .category-tabs--dark {
+    background-color: #1f1f1f;
+    border-bottom-color: #333333;
+  }
+
+  .category-tabs__item {
+    flex: 1;
+    align-items: center;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .category-tabs__text {
+    font-size: 14px;
+    color: #666666;
+  }
+
+  .category-tabs__text--active {
+    color: #007aff;
+    font-weight: bold;
+  }
+</style>
