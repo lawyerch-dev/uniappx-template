@@ -110,12 +110,12 @@
             switch (action) {
               case 'switchTab':
                 uni.webView.switchTab({
-                  url: '/pages/tabBar/API'
+                  url: '/examples/tabBar/API'
                 });
                 break;
               case 'reLaunch':
                 uni.webView.reLaunch({
-                  url: '/pages/tabBar/component'
+                  url: '/examples/tabBar/component'
                 });
                 break;
               case 'navigateBack':
@@ -185,7 +185,7 @@
                 break;
               default:
                 uni.webView[action]({
-                  url: '/pages/component/button/button'
+                  url: '/examples/component/button/button'
                 });
                 break;
             }

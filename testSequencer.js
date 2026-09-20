@@ -1,31 +1,31 @@
 const Sequencer = require("@jest/test-sequencer").default
 const startTestFilePaths = [
-  "pages/API/get-launch-options-sync/get-launch-options-sync.test.js",
-  "pages/API/get-current-pages/get-current-pages.test.js",
-  "pages/component/view/view.test.js",
-  "pages/API/pull-down-refresh/pull-down-refresh.test.js",
-  "pages/component/global-events/global-events.test.js",
-  "pages/component/list-view/list-view-refresh.test.js",
-  "pages/component/scroll-view/scroll-view-refresher.test.js",
-  "pages/component/global-events/touch-events.test.js",
-  "pages/component/global-events/touch-events-bubbles.test.js",
-  "pages/component/global-events/touch-events-case.test.js",
-  "pages/component/global-events/touch-events-preventDefault.test.js",
-  "pages/component/swiper/swiper2.test.js",
-  "pages/component/slider/slider-maxValue.test.js",
-  "pages/CSS/overflow/overflow-visible-event.test.js",
-  "pages/API/create-selector-query/create-selector-query-onScroll.test.js",
-  "pages/component/scroll-view/scroll-view-custom-refresher-props.test.js",
-  "pages/component/waterflow/waterflow.test.js",
-  "pages/component/text/text-props.test.js",
-  "pages/component/rich-text/rich-text-complex.test.js",
-  "pages/component/web-view/web-view/web-view-local.test.js"
+  "examples/API/get-launch-options-sync/get-launch-options-sync.test.js",
+  "examples/API/get-current-pages/get-current-pages.test.js",
+  "examples/component/view/view.test.js",
+  "examples/API/pull-down-refresh/pull-down-refresh.test.js",
+  "examples/component/global-events/global-events.test.js",
+  "examples/component/list-view/list-view-refresh.test.js",
+  "examples/component/scroll-view/scroll-view-refresher.test.js",
+  "examples/component/global-events/touch-events.test.js",
+  "examples/component/global-events/touch-events-bubbles.test.js",
+  "examples/component/global-events/touch-events-case.test.js",
+  "examples/component/global-events/touch-events-preventDefault.test.js",
+  "examples/component/swiper/swiper2.test.js",
+  "examples/component/slider/slider-maxValue.test.js",
+  "examples/CSS/overflow/overflow-visible-event.test.js",
+  "examples/API/create-selector-query/create-selector-query-onScroll.test.js",
+  "examples/component/scroll-view/scroll-view-custom-refresher-props.test.js",
+  "examples/component/waterflow/waterflow.test.js",
+  "examples/component/text/text-props.test.js",
+  "examples/component/rich-text/rich-text-complex.test.js",
+  "examples/component/web-view/web-view/web-view-local.test.js"
 ]
 const endTestFilePaths = [
-  "pages/API/navigator/new-page/onLoad.test.js",
-  "pages/API/modal/modal.test.js",
-  "pages/API/storage/storage.test.js",
-  "pages/component/web-view/web-view.test.js"
+  "examples/API/navigator/new-page/onLoad.test.js",
+  "examples/API/modal/modal.test.js",
+  "examples/API/storage/storage.test.js",
+  "examples/component/web-view/web-view.test.js"
 ]
 
 class CustomSequencer extends Sequencer {

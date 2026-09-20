@@ -13,814 +13,15 @@
 	},
 	"pages": [
 		{
-			"path": "pages/tabBar/component",
+			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "内置组件"
-        // #ifndef MP-WEIXIN
-        ,
-				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
-        // #endif
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
-			"path": "pages/component/view/view",
-			"group": "0,1,0",
+			"path": "pages/mine/mine",
 			"style": {
-				"navigationBarTitleText": "view | 基本视图容器"
-			}
-		},
-		{
-			"path": "pages/component/scroll-view/scroll-view",
-			"group": "0,1,1",
-			"style": {
-				"navigationBarTitleText": "scroll-view | 可滚动视图容器"
-			}
-		},
-		{
-			"path": "pages/component/scroll-view/scroll-view-refresher",
-			"style": {
-				"navigationBarTitleText": "默认下拉刷新的scroll-view示例"
-			}
-		},
-		{
-			"path": "pages/component/scroll-view/scroll-view-props",
-			"style": {
-				"navigationBarTitleText": "非下拉刷新的scroll-view属性示例"
-			}
-		},
-		{
-			"path": "pages/component/scroll-view/scroll-view-refresher-props",
-			"style": {
-				"navigationBarTitleText": "下拉刷新的scroll-view属性示例"
-			}
-		},
-		{
-			"path": "pages/component/scroll-view/scroll-view-custom-refresher-props",
-			"style": {
-				"navigationBarTitleText": "自定义下拉刷新的scroll-view属性示例"
-			}
-		},
-		{
-			"path": "pages/component/swiper/swiper",
-			"group": "0,1,2",
-			"style": {
-				"navigationBarTitleText": "swiper | 滑块视图容器"
-			}
-		},
-		{
-			"path": "pages/component/swiper/swiper-anim",
-			"style": {
-				"navigationBarTitleText": "swiper | 滑块视图容器 - 动画测试"
-			}
-		},
-		// #ifdef VUE3-VAPOR
-		{
-			"path": "pages/component/swiper/swiper-more",
-			"style": {
-				"navigationBarTitleText": "swiper | 更多示例"
-			}
-		},
-		// #endif
-		// #ifdef VUE3-VAPOR
-		{
-			"path": "pages/component/swiper/swiper-in-swiper",
-			"style": {
-				"navigationBarTitleText": "swiper | 嵌套测试"
-			}
-		},
-		{
-			"path": "pages/component/swiper/swiper-item-100",
-			"style": {
-				"navigationBarTitleText": "swiper | 性能测试"
-			}
-		},
-		// #endif
-		{
-			"path": "pages/component/match-media/match-media",
-			"group": "0,1,3",
-			"style": {
-				"navigationBarTitleText": "match-media | 匹配检测节点"
-			}
-		},
-		{
-			"path": "pages/component/page-container/page-container",
-			"group": "0,1,4",
-			"style": {
-				"navigationBarTitleText": "page-container | 页面容器组件"
-			}
-		},
-		{
-			"path": "pages/component/list-view/list-view",
-			"group": "0,1,7",
-			"style": {
-				"navigationBarTitleText": "list-view | 列表容器",
-        "disableScroll": true
-			}
-		},
-		{
-			"path": "pages/component/list-view/list-view-refresh",
-			"style": {
-				"navigationBarTitleText": "list-view-refresh",
-				"enablePullDownRefresh": false,
-        "disableScroll": true
-			}
-		},
-		{
-			"path": "pages/component/list-view/list-view-multiplex",
-			"style": {
-				"navigationBarTitleText": "list-view-multiplex",
-        "disableScroll": true
-			}
-		},
-		{
-			"path": "pages/component/list-view/list-view-multiplex-input",
-			"style": {
-				"navigationBarTitleText": "list-view复用input",
-				"enablePullDownRefresh": false,
-        "disableScroll": true
-			}
-		},
-		{
-			"path": "pages/component/list-view/list-view-form-item",
-			"style": {
-				"navigationBarTitleText": "list-view长按事件",
-				"enablePullDownRefresh": false,
-        "disableScroll": true
-			}
-		},
-		{
-			"path": "pages/component/list-view/list-view-multiplex-video",
-			"style": {
-				"navigationBarTitleText": "list-view-multiplex-video",
-        "disableScroll": true
-			}
-		},
-		{
-			"path": "pages/component/list-view/list-view-children-in-slot",
-			"style": {
-				"navigationBarTitleText": "list-view-children-in-slot",
-        "disableScroll": true
-			}
-		},
-		{
-			"path": "pages/component/list-view/list-view-children-if-show",
-			"style": {
-				"navigationBarTitleText": "list-item v-if & v-show",
-        "disableScroll": true
-			}
-		},
-		{
-			"path": "pages/component/list-view/list-view-with-type",
-			"style": {
-				"navigationBarTitleText": "带有type的list-item",
-        "disableScroll": true
-			}
-		},
-		// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS || WEB
-		{
-			"path": "pages/component/sticky-section/sticky-section",
-			"group": "0,1,9,1",
-			"style": {
-				"navigationBarTitleText": "sticky-section | 吸顶布局容器",
-        "disableScroll": true
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-HARMONY && VUE3-VAPOR || APP-IOS
-		{
-			"path": "pages/component/sticky-section/sticky-section-push-pinned-header",
-			"style": {
-				"navigationBarTitleText": "push-pinned-header属性测试",
-        "disableScroll": true
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS || WEB
-		{
-			"path": "pages/component/sticky-header/sticky-header",
-			"group": "0,1,9,0",
-			"style": {
-				"navigationBarTitleText": "sticky-header | 吸顶布局容器",
-				"enablePullDownRefresh": false,
-        "disableScroll": true
-			}
-		},
-		// #endif
-		{
-			"path": "pages/component/text/text",
-			"group": "0,2,1",
-			"style": {
-				"navigationBarTitleText": "text | 文本"
-			}
-		},
-		{
-			"path": "pages/component/text/text-props",
-			"style": {
-				"navigationBarTitleText": "text-props"
-			}
-		},
-		{
-			"path": "pages/component/text/text-writer",
-			"style": {
-				"navigationBarTitleText": "text-writer"
-			}
-		},
-		// #ifdef APP-ANDROID && !VUE3-VAPOR
-		{
-			"path": "pages/component/text/text-layout",
-			"style": {
-				"navigationBarTitleText": "text-layout"
-			}
-		},
-		// #endif
-		{
-			"path": "pages/component/rich-text/rich-text",
-			"group": "0,2,2",
-			"style": {
-				"navigationBarTitleText": "rich-text | 富文本"
-			}
-		},
-		{
-			"path": "pages/component/rich-text/rich-text-tags",
-			"style": {
-				"navigationBarTitleText": "rich-text-tags"
-			}
-		},
-		{
-			"path": "pages/component/rich-text/rich-text-complex",
-			"style": {
-				"navigationBarTitleText": "rich-text-complex"
-			}
-		},
-		{
-			"path": "pages/component/rich-text/rich-text-highlight",
-			"style": {
-				"navigationBarTitleText": "rich-text-highlight"
-			}
-		},
-		{
-			"path": "pages/component/rich-text/rich-text-list",
-			"style": {
-				"navigationBarTitleText": "rich-text-list"
-			}
-		},
-		{
-			"path": "pages/component/progress/progress",
-			"group": "0,2,3",
-			"style": {
-				"navigationBarTitleText": "progress | 进度条"
-			}
-		},
-		{
-			"path": "pages/component/form/form",
-			"group": "0,3,2",
-			"style": {
-				"navigationBarTitleText": "form | 表单"
-			}
-		},
-		{
-			"path": "pages/component/button/button",
-			"group": "0,3,0",
-			"style": {
-				"navigationBarTitleText": "button | 按钮"
-			}
-		},
-		{
-			"path": "pages/component/button/buttonstatus",
-			"style": {
-				"navigationBarTitleText": "buttonstatus"
-			}
-		},
-		{
-			"path": "pages/component/radio/radio",
-			"group": "0,3,8",
-			"style": {
-				"navigationBarTitleText": "radio | 单选框"
-			}
-		},
-		{
-			"path": "pages/component/checkbox/checkbox",
-			"group": "0,3,1",
-			"style": {
-				"navigationBarTitleText": "checkbox | 多选框"
-			}
-		},
-		{
-			"path": "pages/component/input/input",
-			"group": "0,3,3",
-			"style": {
-				"navigationBarTitleText": "input | 输入框"
-			}
-		},
-		{
-			"path": "pages/component/input/input-performance",
-			"style": {
-				"navigationBarTitleText": "input 性能测试"
-			}
-		},
-		{
-			"path": "pages/component/textarea/textarea",
-			"group": "0,3,11",
-			"style": {
-				"navigationBarTitleText": "textarea | 多行输入框"
-			}
-		},
-		{
-			"path": "pages/component/textarea/textarea-performance",
-			"style": {
-				"navigationBarTitleText": "textarea 性能测试"
-			}
-		},
-		{
-			"path": "pages/component/slider/slider",
-			"group": "0,3,9",
-			"style": {
-				"navigationBarTitleText": "slider | 滑动选择器"
-			}
-		},
-		{
-			"path": "pages/component/slider/slider-in-swiper",
-			"style": {
-				"navigationBarTitleText": "slider-in-swiper"
-			}
-		},
-		{
-			"path": "pages/component/slider/slider-maxValue",
-			"style": {
-				"navigationBarTitleText": "slider-maxValue-test"
-			}
-		},
-		{
-			"path": "pages/component/picker-view/picker-view",
-			"group": "0,3,7",
-			"style": {
-				"navigationBarTitleText": "picker-view | 嵌入页面的滚动选择器"
-			}
-		},
-		{
-			"path": "pages/component/picker-view/wrap-picker-view",
-			"style": {
-				"navigationBarTitleText": "picker-view | 嵌入页面的滚动选择器"
-			}
-		},
-		{
-			"path": "pages/component/switch/switch",
-			"group": "0,3,10",
-			"style": {
-				"navigationBarTitleText": "switch | 开关选择器"
-			}
-		},
-		{
-			"path": "pages/component/image/image",
-			"group": "0,5,0",
-			"style": {
-				"navigationBarTitleText": "image | 图片"
-			}
-		},
-		{
-			"path": "pages/component/image/image-format",
-			"style": {
-				"navigationBarTitleText": "image-format"
-			}
-		},
-		{
-			"path": "pages/component/image/image-mode",
-			"style": {
-				"navigationBarTitleText": "image-mode"
-			}
-		},
-		{
-			"path": "pages/component/image/image-path",
-			"style": {
-				"navigationBarTitleText": "image-path"
-			}
-		},
-		{
-			"path": "pages/component/image/image-large",
-			"style": {
-				"navigationBarTitleText": "大图测试"
-			}
-		},
-		{
-			"path": "pages/component/image/image-switch",
-			"style": {
-				"navigationBarTitleText": "image-switch"
-			}
-		},
-		{
-			"path": "pages/component/video/video",
-			"group": "0,5,1",
-			"style": {
-				"navigationBarTitleText": "video | 视频"
-			}
-		},
-		{
-			"path": "pages/component/video/video-format",
-			"style": {
-				"navigationBarTitleText": "video-format"
-			}
-		},
-		{
-			"path": "pages/component/navigator/navigator",
-			"group": "0,4,0",
-			"style": {
-				"navigationBarTitleText": "navigator | 页面链接"
-			}
-		},
-		{
-			"path": "pages/component/navigator/navigate",
-			"style": {
-				"navigationBarTitleText": "navigatePage"
-			}
-		},
-		{
-			"path": "pages/component/navigator/redirect",
-			"style": {
-				"navigationBarTitleText": "redirectPage"
-			}
-		},
-		{
-			"path": "pages/component/web-view/web-view",
-			"group": "0,9",
-			"style": {
-				"navigationBarTitleText": "web-view"
-			}
-		},
-		{
-			"path": "pages/component/web-view/web-view-scroll",
-			"style": {
-				"navigationBarTitleText": "web-view-scroll"
-			}
-		},
-		// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS || WEB
-		{
-			"path": "pages/component/web-view/web-view/web-view-local",
-			"group": "0,9",
-			"style": {
-				"navigationBarTitleText": "本地网页",
-        		"disableScroll": true
-			}
-		},
-		// #endif
-		// #ifdef MP-WEIXIN
-		{
-			"path": "pages/component/page-meta/page-meta",
-			"group": "0,10",
-			"style": {
-				"navigationBarTitleText": "page-meta"
-			}
-		},
-		// #endif
-		{
-			"path": "pages/component/unicloud-db/unicloud-db",
-			"style": {
-				"navigationBarTitleText": "unicloud-db"
-			}
-		},
-		{
-			"path": "pages/component/unicloud-db/unicloud-db/contacts/list",
-			"group": "0,11",
-			"style": {
-				"navigationBarTitleText": "联系人",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/component/unicloud-db/unicloud-db/contacts/add",
-			"style": {
-				"navigationBarTitleText": "新增联系人"
-			}
-		},
-		{
-			"path": "pages/component/unicloud-db/unicloud-db/contacts/edit",
-			"style": {
-				"navigationBarTitleText": "编辑联系人"
-			}
-		},
-		{
-			"path": "pages/component/unicloud-db/unicloud-db/contacts/detail",
-			"style": {
-				"navigationBarTitleText": "联系人详情"
-			}
-		},
-		// #ifndef VUE3-VAPOR
-		{
-			"path": "pages/component/unicloud-db/unicloud-db/mixin-datacom/mixin-datacom",
-			"group": "0,11",
-			"style": {
-				"navigationBarTitleText": "mixinDatacom"
-			}
-		},
-		// #endif
-		{
-			"path": "pages/component/global-properties/global-properties",
-			"group": "0,0",
-			"style": {
-				"navigationBarTitleText": "全局属性"
-			}
-		},
-		{
-			"path": "pages/component/global-events/global-events",
-			"group": "0,0",
-			"style": {
-				"navigationBarTitleText": "全局事件"
-			}
-		},
-		{
-			"path": "pages/component/global-events/global-events-transform",
-			"group": "0,0",
-			"style": {
-				"navigationBarTitleText": "点击事件-transform"
-			}
-		},
-		{
-			"path": "pages/component/global-events/transition-events",
-			"group": "0,0",
-			"style": {
-				"navigationBarTitleText": "Transition Events"
-			}
-		},
-		{
-			"path": "pages/component/global-events/touch-events",
-			"group": "0,0",
-			"style": {
-				"navigationBarTitleText": "Touch Events"
-			}
-		},
-		{
-			"path": "pages/component/global-events/touch-events-bubbles",
-			"style": {
-				"navigationBarTitleText": "Touch Events bubbles"
-			}
-		},
-		{
-			"path": "pages/component/global-events/touch-events-case",
-			"style": {
-				"navigationBarTitleText": "Touch Events case"
-			}
-		},
-		{
-			"path": "pages/component/global-events/touch-events-preventDefault",
-			"style": {
-				"navigationBarTitleText": "preventDefault"
-			}
-		},
-		{
-			"path": "pages/component/global-events/touch-events-preventDefault-click",
-			"style": {
-				"navigationBarTitleText": "preventDefault"
-			}
-		},
-		{
-			"path": "pages/component/global-events/event-longpress",
-			"style": {
-				"navigationBarTitleText": "LongPress"
-			}
-		},
-		// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
-		{
-			"path": "pages/component/nested-scroll-header/nested-scroll-header",
-			"group": "0,1,10,0",
-			"style": {
-				"navigationBarTitleText": "nested-scroll-header"
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
-		{
-			"path": "pages/component/nested-scroll-body/nested-scroll-body",
-			"group": "0,1,10,1",
-			"style": {
-				"navigationBarTitleText": "nested-scroll-body"
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS || WEB
-		{
-			"path": "pages/component/swiper/swiper-list-view",
-			"style": {
-				"navigationBarTitleText": "swiper嵌套list-view",
-				"enablePullDownRefresh": false
-			}
-		},
-		// #endif
-		// #ifdef WEB || MP-WEIXIN
-		{
-			"path": "pages/component/movable-view/movable-view",
-			"group": "0,1,5,1",
-			"style": {
-				"navigationBarTitleText": "movable-view | 可拖动视图容器"
-			}
-		},
-		// #endif
-		// #ifdef APP-HARMONY || WEB || MP-WEIXIN
-		{
-			"path": "pages/component/label/label",
-			"group": "0,3,5",
-			"style": {
-				"navigationBarTitleText": "label"
-			}
-		},
-		// #endif
-		{
-			"path": "pages/component/picker/picker",
-			"group": "0,3,6",
-			"style": {
-				"navigationBarTitleText": "picker | 底部弹出滚动选择器"
-			}
-		},
-		{
-			"path": "pages/component/map/map",
-			"group": "0,6",
-			"style": {
-				"navigationBarTitleText": "map | 地图"
-			}
-		},
-		{
-			"path": "pages/component/cover-view/cover-view",
-			"group": "0,1,6,0",
-			"style": {
-				"navigationBarTitleText": "cover-view"
-			}
-		},
-		{
-			"path": "pages/component/canvas/canvas",
-			"group": "0,7",
-			"style": {
-				"navigationBarTitleText": "canvas | 画布"
-			}
-		},
-		{
-			"path": "pages/component/canvas/canvas-context",
-			"style": {
-				"navigationBarTitleText": "createCanvasContextAsync"
-			}
-		},
-		{
-			"path": "pages/component/canvas/canvas/ball",
-			"group": "0,7",
-			"style": {
-				"navigationBarTitleText": "ball"
-			}
-		},
-		{
-			"path": "pages/component/canvas/canvas/doodle",
-			"group": "0,7",
-			"style": {
-				"navigationBarTitleText": "涂鸦"
-			}
-		},
-		// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
-		{
-			"path": "pages/component/native-view/native-view",
-			"group": "0,2,5",
-			"style": {
-				"navigationBarTitleText": "native-view | 自定义原生View组件"
-			}
-		},
-		// #endif
-		{
-			"path": "pages/component/loading/loading",
-			"group": "0,2,4",
-			"style": {
-				"navigationBarTitleText": "loading | 加载组件"
-			}
-		},
-		// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
-		{
-			"path": "pages/component/ad/ad",
-			"group": "0,8",
-			"style": {
-				"navigationBarTitleText": "ad | 信息流广告",
-				"enablePullDownRefresh": false
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
-		{
-			"path": "pages/component/waterflow/waterflow",
-			"group": "0,1,8",
-			"style": {
-				"navigationBarTitleText": "waterflow | 瀑布流容器"
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
-		{
-			"path": "pages/component/waterflow/waterflow-fit-height",
-			"style": {
-				"navigationBarTitleText": "waterflow | 瀑布流容器"
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
-		{
-			"path": "pages/component/ad/list-view-ad",
-			"style": {
-				"navigationBarTitleText": "ad | 信息流广告",
-				"enablePullDownRefresh": false,
-        "disableScroll": true
-			}
-		},
-		// #endif
-		// #ifdef (APP-ANDROID || APP-IOS) && !VUE3-VAPOR
-		{
-			"path": "pages/component/share-element/share-element",
-			"group": "0,1,11",
-			"style": {
-				"navigationBarTitleText": "share-element | 共享元素视图容器"
-			}
-		},
-		// #endif
-		// #ifdef (APP-ANDROID || APP-IOS) && !VUE3-VAPOR
-		{
-			"path": "pages/component/share-element/share-element-with-swiper",
-			"style": {
-				"navigationBarTitleText": "share-element-with-swiper"
-			}
-		},
-		// #endif
-		// #ifdef (APP-ANDROID || APP-IOS) && !VUE3-VAPOR
-		{
-			"path": "pages/component/share-element/share-element-to",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
-		{
-			"path": "pages/component/camera/camera",
-			"group": "0,5,3",
-			"style": {
-				"navigationBarTitleText": "camera | 相机"
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
-		{
-			"path": "pages/component/camera/camera-scan-code",
-			"style": {
-				"navigationBarTitleText": "camera-scan-code | 相机扫码"
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
-		{
-			"path": "pages/component/live-player/live-player",
-			"group": "0,5,4",
-			"style": {
-				"navigationBarTitleText": "live-player | 实时音视频播放"
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
-		{
-			"path": "pages/component/live-pusher/live-pusher",
-			"group": "0,5,5",
-			"style": {
-				"navigationBarTitleText": "live-pusher | 实时音视频录制"
-			}
-		},
-		// #endif
-		{
-			"path": "pages/tabBar/API",
-			"style": {
-				"navigationBarTitleText": "接口"
-        // #ifndef MP-WEIXIN
-        ,
-				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
-        // #endif
-			}
-		},
-		{
-			"path": "pages/tabBar/CSS",
-			"style": {
-				"navigationBarTitleText": "CSS"
-        // #ifndef MP-WEIXIN
-        ,
-				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
-        // #endif
-			}
-		},
-		{
-			"path": "pages/tabBar/template",
-			"style": {
-				"navigationBarTitleText": "模板"
-        // #ifndef MP-WEIXIN
-        ,
-				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
-        // #endif
-			}
-		},
-		{
-			"path": "pages/tabBar/uni-ui",
-			"style": {
-				"navigationBarTitleText": "uni-ui"
-        // #ifndef MP-WEIXIN
-        ,
-				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
-        // #endif
+				"navigationBarTitleText": "我的"
 			}
 		},
 		{
@@ -856,57 +57,7 @@
 			}
 		},
 		// #endif
-		// #ifdef APP-ANDROID || APP-IOS || APP-HARMONY
-		{
-			"path": "pages/component/video/video-dialog-page",
-			"style": {
-				"navigationBarTitleText": "test dislogPage video"
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-IOS || APP-HARMONY
-		{
-			"path": "pages/component/button/privacy",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		// #endif
-		// #ifdef APP-HARMONY
-		{
-			"path": "pages/component/button/privacy-web-view",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-IOS
-		{
-			"path": "pages/component/ad/video-ad",
-			"style": {
-				"navigationBarTitleText": "ad | 视频贴片",
-				"enablePullDownRefresh": false
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-IOS
-		{
-			"path": "pages/component/ad/portrait-video-ad",
-			"style": {
-				"navigationBarTitleText": "ad | 视频贴片竖向全屏",
-				"enablePullDownRefresh": false
-			}
-		},
-		// #endif
-		// #ifdef APP-ANDROID || APP-IOS
-		{
-			"path": "pages/component/ad/landscape-video-ad",
-			"style": {
-				"navigationBarTitleText": "ad | 视频贴片横向全屏",
-				"enablePullDownRefresh": false
-			}
-		},
-		// #endif
+
 		// #ifdef APP-ANDROID || APP-IOS || APP-HARMONY
 		{
 			"path": "uni_modules/uni-upgrade-center-app/pages/uni-app-x/upgrade-popup",
@@ -915,60 +66,963 @@
 			}
 		},
 		// #endif
-		// #ifdef APP-ANDROID || APP-IOS
-		{
-			"path": "pages/component/native-view/native-view-time-picker-dialog",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		// #endif
-		{
-			"path": "pages/component/image/image-long",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/component/image/image-orientation",
-			"style": {
-				"navigationBarTitleText": "图片自动转向测试"
-			}
-		},
+
 		{
 			"path": "uni_modules/uni-link-x/pages/link-webview",
 			"style": {
 				"navigationBarTitleText": ""
 			}
 		}
+	
 	],
 	"subPackages": [
 		{
-			"root": "pages/component/editor",
+			"root": "examples/component",
 			"pages": [
 				{
-					"path": "editor",
+			"path": "view/view",
+			"group": "0,1,0",
+			"style": {
+				"navigationBarTitleText": "view | 基本视图容器"
+			}
+		},
+				{
+			"path": "scroll-view/scroll-view",
+			"group": "0,1,1",
+			"style": {
+				"navigationBarTitleText": "scroll-view | 可滚动视图容器"
+			}
+		},
+				{
+			"path": "scroll-view/scroll-view-refresher",
+			"style": {
+				"navigationBarTitleText": "默认下拉刷新的scroll-view示例"
+			}
+		},
+				{
+			"path": "scroll-view/scroll-view-props",
+			"style": {
+				"navigationBarTitleText": "非下拉刷新的scroll-view属性示例"
+			}
+		},
+				{
+			"path": "scroll-view/scroll-view-refresher-props",
+			"style": {
+				"navigationBarTitleText": "下拉刷新的scroll-view属性示例"
+			}
+		},
+				{
+			"path": "scroll-view/scroll-view-custom-refresher-props",
+			"style": {
+				"navigationBarTitleText": "自定义下拉刷新的scroll-view属性示例"
+			}
+		},
+				{
+			"path": "swiper/swiper",
+			"group": "0,1,2",
+			"style": {
+				"navigationBarTitleText": "swiper | 滑块视图容器"
+			}
+		},
+				{
+			"path": "swiper/swiper-anim",
+			"style": {
+				"navigationBarTitleText": "swiper | 滑块视图容器 - 动画测试"
+			}
+		},
+				// #ifdef VUE3-VAPOR
+		{
+			"path": "swiper/swiper-more",
+			"style": {
+				"navigationBarTitleText": "swiper | 更多示例"
+			}
+		},
+		// #endif
+
+				// #ifdef VUE3-VAPOR
+		{
+			"path": "swiper/swiper-in-swiper",
+			"style": {
+				"navigationBarTitleText": "swiper | 嵌套测试"
+			}
+		},
+		{
+			"path": "swiper/swiper-item-100",
+			"style": {
+				"navigationBarTitleText": "swiper | 性能测试"
+			}
+		},
+		// #endif
+
+				{
+			"path": "match-media/match-media",
+			"group": "0,1,3",
+			"style": {
+				"navigationBarTitleText": "match-media | 匹配检测节点"
+			}
+		},
+				{
+			"path": "page-container/page-container",
+			"group": "0,1,4",
+			"style": {
+				"navigationBarTitleText": "page-container | 页面容器组件"
+			}
+		},
+				{
+			"path": "list-view/list-view",
+			"group": "0,1,7",
+			"style": {
+				"navigationBarTitleText": "list-view | 列表容器",
+        "disableScroll": true
+			}
+		},
+				{
+			"path": "list-view/list-view-refresh",
+			"style": {
+				"navigationBarTitleText": "list-view-refresh",
+				"enablePullDownRefresh": false,
+        "disableScroll": true
+			}
+		},
+				{
+			"path": "list-view/list-view-multiplex",
+			"style": {
+				"navigationBarTitleText": "list-view-multiplex",
+        "disableScroll": true
+			}
+		},
+				{
+			"path": "list-view/list-view-multiplex-input",
+			"style": {
+				"navigationBarTitleText": "list-view复用input",
+				"enablePullDownRefresh": false,
+        "disableScroll": true
+			}
+		},
+				{
+			"path": "list-view/list-view-form-item",
+			"style": {
+				"navigationBarTitleText": "list-view长按事件",
+				"enablePullDownRefresh": false,
+        "disableScroll": true
+			}
+		},
+				{
+			"path": "list-view/list-view-multiplex-video",
+			"style": {
+				"navigationBarTitleText": "list-view-multiplex-video",
+        "disableScroll": true
+			}
+		},
+				{
+			"path": "list-view/list-view-children-in-slot",
+			"style": {
+				"navigationBarTitleText": "list-view-children-in-slot",
+        "disableScroll": true
+			}
+		},
+				{
+			"path": "list-view/list-view-children-if-show",
+			"style": {
+				"navigationBarTitleText": "list-item v-if & v-show",
+        "disableScroll": true
+			}
+		},
+				{
+			"path": "list-view/list-view-with-type",
+			"style": {
+				"navigationBarTitleText": "带有type的list-item",
+        "disableScroll": true
+			}
+		},
+				// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS || WEB
+		{
+			"path": "sticky-section/sticky-section",
+			"group": "0,1,9,1",
+			"style": {
+				"navigationBarTitleText": "sticky-section | 吸顶布局容器",
+        "disableScroll": true
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-HARMONY && VUE3-VAPOR || APP-IOS
+		{
+			"path": "sticky-section/sticky-section-push-pinned-header",
+			"style": {
+				"navigationBarTitleText": "push-pinned-header属性测试",
+        "disableScroll": true
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS || WEB
+		{
+			"path": "sticky-header/sticky-header",
+			"group": "0,1,9,0",
+			"style": {
+				"navigationBarTitleText": "sticky-header | 吸顶布局容器",
+				"enablePullDownRefresh": false,
+        "disableScroll": true
+			}
+		},
+		// #endif
+
+				{
+			"path": "text/text",
+			"group": "0,2,1",
+			"style": {
+				"navigationBarTitleText": "text | 文本"
+			}
+		},
+				{
+			"path": "text/text-props",
+			"style": {
+				"navigationBarTitleText": "text-props"
+			}
+		},
+				{
+			"path": "text/text-writer",
+			"style": {
+				"navigationBarTitleText": "text-writer"
+			}
+		},
+				// #ifdef APP-ANDROID && !VUE3-VAPOR
+		{
+			"path": "text/text-layout",
+			"style": {
+				"navigationBarTitleText": "text-layout"
+			}
+		},
+		// #endif
+
+				{
+			"path": "rich-text/rich-text",
+			"group": "0,2,2",
+			"style": {
+				"navigationBarTitleText": "rich-text | 富文本"
+			}
+		},
+				{
+			"path": "rich-text/rich-text-tags",
+			"style": {
+				"navigationBarTitleText": "rich-text-tags"
+			}
+		},
+				{
+			"path": "rich-text/rich-text-complex",
+			"style": {
+				"navigationBarTitleText": "rich-text-complex"
+			}
+		},
+				{
+			"path": "rich-text/rich-text-highlight",
+			"style": {
+				"navigationBarTitleText": "rich-text-highlight"
+			}
+		},
+				{
+			"path": "rich-text/rich-text-list",
+			"style": {
+				"navigationBarTitleText": "rich-text-list"
+			}
+		},
+				{
+			"path": "progress/progress",
+			"group": "0,2,3",
+			"style": {
+				"navigationBarTitleText": "progress | 进度条"
+			}
+		},
+				{
+			"path": "form/form",
+			"group": "0,3,2",
+			"style": {
+				"navigationBarTitleText": "form | 表单"
+			}
+		},
+				{
+			"path": "button/button",
+			"group": "0,3,0",
+			"style": {
+				"navigationBarTitleText": "button | 按钮"
+			}
+		},
+				{
+			"path": "button/buttonstatus",
+			"style": {
+				"navigationBarTitleText": "buttonstatus"
+			}
+		},
+				{
+			"path": "radio/radio",
+			"group": "0,3,8",
+			"style": {
+				"navigationBarTitleText": "radio | 单选框"
+			}
+		},
+				{
+			"path": "checkbox/checkbox",
+			"group": "0,3,1",
+			"style": {
+				"navigationBarTitleText": "checkbox | 多选框"
+			}
+		},
+				{
+			"path": "input/input",
+			"group": "0,3,3",
+			"style": {
+				"navigationBarTitleText": "input | 输入框"
+			}
+		},
+				{
+			"path": "input/input-performance",
+			"style": {
+				"navigationBarTitleText": "input 性能测试"
+			}
+		},
+				{
+			"path": "textarea/textarea",
+			"group": "0,3,11",
+			"style": {
+				"navigationBarTitleText": "textarea | 多行输入框"
+			}
+		},
+				{
+			"path": "textarea/textarea-performance",
+			"style": {
+				"navigationBarTitleText": "textarea 性能测试"
+			}
+		},
+				{
+			"path": "slider/slider",
+			"group": "0,3,9",
+			"style": {
+				"navigationBarTitleText": "slider | 滑动选择器"
+			}
+		},
+				{
+			"path": "slider/slider-in-swiper",
+			"style": {
+				"navigationBarTitleText": "slider-in-swiper"
+			}
+		},
+				{
+			"path": "slider/slider-maxValue",
+			"style": {
+				"navigationBarTitleText": "slider-maxValue-test"
+			}
+		},
+				{
+			"path": "picker-view/picker-view",
+			"group": "0,3,7",
+			"style": {
+				"navigationBarTitleText": "picker-view | 嵌入页面的滚动选择器"
+			}
+		},
+				{
+			"path": "picker-view/wrap-picker-view",
+			"style": {
+				"navigationBarTitleText": "picker-view | 嵌入页面的滚动选择器"
+			}
+		},
+				{
+			"path": "switch/switch",
+			"group": "0,3,10",
+			"style": {
+				"navigationBarTitleText": "switch | 开关选择器"
+			}
+		},
+				{
+			"path": "image/image",
+			"group": "0,5,0",
+			"style": {
+				"navigationBarTitleText": "image | 图片"
+			}
+		},
+				{
+			"path": "image/image-format",
+			"style": {
+				"navigationBarTitleText": "image-format"
+			}
+		},
+				{
+			"path": "image/image-mode",
+			"style": {
+				"navigationBarTitleText": "image-mode"
+			}
+		},
+				{
+			"path": "image/image-path",
+			"style": {
+				"navigationBarTitleText": "image-path"
+			}
+		},
+				{
+			"path": "image/image-large",
+			"style": {
+				"navigationBarTitleText": "大图测试"
+			}
+		},
+				{
+			"path": "image/image-switch",
+			"style": {
+				"navigationBarTitleText": "image-switch"
+			}
+		},
+				{
+			"path": "video/video",
+			"group": "0,5,1",
+			"style": {
+				"navigationBarTitleText": "video | 视频"
+			}
+		},
+				{
+			"path": "video/video-format",
+			"style": {
+				"navigationBarTitleText": "video-format"
+			}
+		},
+				{
+			"path": "navigator/navigator",
+			"group": "0,4,0",
+			"style": {
+				"navigationBarTitleText": "navigator | 页面链接"
+			}
+		},
+				{
+			"path": "navigator/navigate",
+			"style": {
+				"navigationBarTitleText": "navigatePage"
+			}
+		},
+				{
+			"path": "navigator/redirect",
+			"style": {
+				"navigationBarTitleText": "redirectPage"
+			}
+		},
+				{
+			"path": "web-view/web-view",
+			"group": "0,9",
+			"style": {
+				"navigationBarTitleText": "web-view"
+			}
+		},
+				{
+			"path": "web-view/web-view-scroll",
+			"style": {
+				"navigationBarTitleText": "web-view-scroll"
+			}
+		},
+				// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS || WEB
+		{
+			"path": "web-view/web-view/web-view-local",
+			"group": "0,9",
+			"style": {
+				"navigationBarTitleText": "本地网页",
+        		"disableScroll": true
+			}
+		},
+		// #endif
+
+				// #ifdef MP-WEIXIN
+		{
+			"path": "page-meta/page-meta",
+			"group": "0,10",
+			"style": {
+				"navigationBarTitleText": "page-meta"
+			}
+		},
+		// #endif
+
+				{
+			"path": "unicloud-db/unicloud-db",
+			"style": {
+				"navigationBarTitleText": "unicloud-db"
+			}
+		},
+				{
+			"path": "unicloud-db/unicloud-db/contacts/list",
+			"group": "0,11",
+			"style": {
+				"navigationBarTitleText": "联系人",
+				"enablePullDownRefresh": true
+			}
+		},
+				{
+			"path": "unicloud-db/unicloud-db/contacts/add",
+			"style": {
+				"navigationBarTitleText": "新增联系人"
+			}
+		},
+				{
+			"path": "unicloud-db/unicloud-db/contacts/edit",
+			"style": {
+				"navigationBarTitleText": "编辑联系人"
+			}
+		},
+				{
+			"path": "unicloud-db/unicloud-db/contacts/detail",
+			"style": {
+				"navigationBarTitleText": "联系人详情"
+			}
+		},
+				// #ifndef VUE3-VAPOR
+		{
+			"path": "unicloud-db/unicloud-db/mixin-datacom/mixin-datacom",
+			"group": "0,11",
+			"style": {
+				"navigationBarTitleText": "mixinDatacom"
+			}
+		},
+		// #endif
+
+				{
+			"path": "global-properties/global-properties",
+			"group": "0,0",
+			"style": {
+				"navigationBarTitleText": "全局属性"
+			}
+		},
+				{
+			"path": "global-events/global-events",
+			"group": "0,0",
+			"style": {
+				"navigationBarTitleText": "全局事件"
+			}
+		},
+				{
+			"path": "global-events/global-events-transform",
+			"group": "0,0",
+			"style": {
+				"navigationBarTitleText": "点击事件-transform"
+			}
+		},
+				{
+			"path": "global-events/transition-events",
+			"group": "0,0",
+			"style": {
+				"navigationBarTitleText": "Transition Events"
+			}
+		},
+				{
+			"path": "global-events/touch-events",
+			"group": "0,0",
+			"style": {
+				"navigationBarTitleText": "Touch Events"
+			}
+		},
+				{
+			"path": "global-events/touch-events-bubbles",
+			"style": {
+				"navigationBarTitleText": "Touch Events bubbles"
+			}
+		},
+				{
+			"path": "global-events/touch-events-case",
+			"style": {
+				"navigationBarTitleText": "Touch Events case"
+			}
+		},
+				{
+			"path": "global-events/touch-events-preventDefault",
+			"style": {
+				"navigationBarTitleText": "preventDefault"
+			}
+		},
+				{
+			"path": "global-events/touch-events-preventDefault-click",
+			"style": {
+				"navigationBarTitleText": "preventDefault"
+			}
+		},
+				{
+			"path": "global-events/event-longpress",
+			"style": {
+				"navigationBarTitleText": "LongPress"
+			}
+		},
+				// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
+		{
+			"path": "nested-scroll-header/nested-scroll-header",
+			"group": "0,1,10,0",
+			"style": {
+				"navigationBarTitleText": "nested-scroll-header"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
+		{
+			"path": "nested-scroll-body/nested-scroll-body",
+			"group": "0,1,10,1",
+			"style": {
+				"navigationBarTitleText": "nested-scroll-body"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS || WEB
+		{
+			"path": "swiper/swiper-list-view",
+			"style": {
+				"navigationBarTitleText": "swiper嵌套list-view",
+				"enablePullDownRefresh": false
+			}
+		},
+		// #endif
+
+				// #ifdef WEB || MP-WEIXIN
+		{
+			"path": "movable-view/movable-view",
+			"group": "0,1,5,1",
+			"style": {
+				"navigationBarTitleText": "movable-view | 可拖动视图容器"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-HARMONY || WEB || MP-WEIXIN
+		{
+			"path": "label/label",
+			"group": "0,3,5",
+			"style": {
+				"navigationBarTitleText": "label"
+			}
+		},
+		// #endif
+
+				{
+			"path": "picker/picker",
+			"group": "0,3,6",
+			"style": {
+				"navigationBarTitleText": "picker | 底部弹出滚动选择器"
+			}
+		},
+				{
+			"path": "map/map",
+			"group": "0,6",
+			"style": {
+				"navigationBarTitleText": "map | 地图"
+			}
+		},
+				{
+			"path": "cover-view/cover-view",
+			"group": "0,1,6,0",
+			"style": {
+				"navigationBarTitleText": "cover-view"
+			}
+		},
+				{
+			"path": "canvas/canvas",
+			"group": "0,7",
+			"style": {
+				"navigationBarTitleText": "canvas | 画布"
+			}
+		},
+				{
+			"path": "canvas/canvas-context",
+			"style": {
+				"navigationBarTitleText": "createCanvasContextAsync"
+			}
+		},
+				{
+			"path": "canvas/canvas/ball",
+			"group": "0,7",
+			"style": {
+				"navigationBarTitleText": "ball"
+			}
+		},
+				{
+			"path": "canvas/canvas/doodle",
+			"group": "0,7",
+			"style": {
+				"navigationBarTitleText": "涂鸦"
+			}
+		},
+				// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
+		{
+			"path": "native-view/native-view",
+			"group": "0,2,5",
+			"style": {
+				"navigationBarTitleText": "native-view | 自定义原生View组件"
+			}
+		},
+		// #endif
+
+				{
+			"path": "loading/loading",
+			"group": "0,2,4",
+			"style": {
+				"navigationBarTitleText": "loading | 加载组件"
+			}
+		},
+				// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
+		{
+			"path": "ad/ad",
+			"group": "0,8",
+			"style": {
+				"navigationBarTitleText": "ad | 信息流广告",
+				"enablePullDownRefresh": false
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
+		{
+			"path": "waterflow/waterflow",
+			"group": "0,1,8",
+			"style": {
+				"navigationBarTitleText": "waterflow | 瀑布流容器"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-HARMONY || APP-IOS
+		{
+			"path": "waterflow/waterflow-fit-height",
+			"style": {
+				"navigationBarTitleText": "waterflow | 瀑布流容器"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
+		{
+			"path": "ad/list-view-ad",
+			"style": {
+				"navigationBarTitleText": "ad | 信息流广告",
+				"enablePullDownRefresh": false,
+        "disableScroll": true
+			}
+		},
+		// #endif
+
+				// #ifdef (APP-ANDROID || APP-IOS) && !VUE3-VAPOR
+		{
+			"path": "share-element/share-element",
+			"group": "0,1,11",
+			"style": {
+				"navigationBarTitleText": "share-element | 共享元素视图容器"
+			}
+		},
+		// #endif
+
+				// #ifdef (APP-ANDROID || APP-IOS) && !VUE3-VAPOR
+		{
+			"path": "share-element/share-element-with-swiper",
+			"style": {
+				"navigationBarTitleText": "share-element-with-swiper"
+			}
+		},
+		// #endif
+
+				// #ifdef (APP-ANDROID || APP-IOS) && !VUE3-VAPOR
+		{
+			"path": "share-element/share-element-to",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
+		{
+			"path": "camera/camera",
+			"group": "0,5,3",
+			"style": {
+				"navigationBarTitleText": "camera | 相机"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
+		{
+			"path": "camera/camera-scan-code",
+			"style": {
+				"navigationBarTitleText": "camera-scan-code | 相机扫码"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
+		{
+			"path": "live-player/live-player",
+			"group": "0,5,4",
+			"style": {
+				"navigationBarTitleText": "live-player | 实时音视频播放"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS || MP-WEIXIN
+		{
+			"path": "live-pusher/live-pusher",
+			"group": "0,5,5",
+			"style": {
+				"navigationBarTitleText": "live-pusher | 实时音视频录制"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS || APP-HARMONY
+		{
+			"path": "video/video-dialog-page",
+			"style": {
+				"navigationBarTitleText": "test dislogPage video"
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS || APP-HARMONY
+		{
+			"path": "button/privacy",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		// #endif
+
+				// #ifdef APP-HARMONY
+		{
+			"path": "button/privacy-web-view",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS
+		{
+			"path": "ad/video-ad",
+			"style": {
+				"navigationBarTitleText": "ad | 视频贴片",
+				"enablePullDownRefresh": false
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS
+		{
+			"path": "ad/portrait-video-ad",
+			"style": {
+				"navigationBarTitleText": "ad | 视频贴片竖向全屏",
+				"enablePullDownRefresh": false
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS
+		{
+			"path": "ad/landscape-video-ad",
+			"style": {
+				"navigationBarTitleText": "ad | 视频贴片横向全屏",
+				"enablePullDownRefresh": false
+			}
+		},
+		// #endif
+
+				// #ifdef APP-ANDROID || APP-IOS
+		{
+			"path": "native-view/native-view-time-picker-dialog",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		// #endif
+
+				{
+			"path": "image/image-long",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+				{
+			"path": "image/image-orientation",
+			"style": {
+				"navigationBarTitleText": "图片自动转向测试"
+			}
+		},
+				{
+					"path": "editor/editor",
 					"group": "0,3,4",
 					"style": {
 						"navigationBarTitleText": "editor | 富文本编辑器"
 					}
 				},
 				{
-					"path": "editor-edit",
+					"path": "editor/editor-edit",
 					"style": {
 						"navigationBarTitleText": "editor | 编辑模板"
 					}
 				},
 				{
-					"path": "editor-preview",
+					"path": "editor/editor-preview",
 					"style": {
 						"navigationBarTitleText": "editor | 预览"
 					}
 				}
+			
 			]
 		},
 		{
-			"root": "pages/API",
+			"root": "examples/tabBar",
+			"pages": [
+				{
+			"path": "component",
+			"style": {
+				"navigationBarTitleText": "内置组件"
+        // #ifndef MP-WEIXIN
+        ,
+				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
+        // #endif
+			}
+		},
+				{
+			"path": "API",
+			"style": {
+				"navigationBarTitleText": "接口"
+        // #ifndef MP-WEIXIN
+        ,
+				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
+        // #endif
+			}
+		},
+				{
+			"path": "CSS",
+			"style": {
+				"navigationBarTitleText": "CSS"
+        // #ifndef MP-WEIXIN
+        ,
+				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
+        // #endif
+			}
+		},
+				{
+			"path": "template",
+			"style": {
+				"navigationBarTitleText": "模板"
+        // #ifndef MP-WEIXIN
+        ,
+				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
+        // #endif
+			}
+		},
+				{
+			"path": "uni-ui",
+			"style": {
+				"navigationBarTitleText": "uni-ui"
+        // #ifndef MP-WEIXIN
+        ,
+				"backgroundColorContent": "@tabBarPagebackgroundColorContent"
+        // #endif
+			}
+		}
+			]
+		},
+		{
+			"root": "examples/API",
 			"pages": [
 				{
 					"path": "get-app/get-app",
@@ -2228,7 +2282,7 @@
 			]
 		},
 		{
-			"root": "pages/template",
+			"root": "examples/template",
 			"pages": [
 				{
 					"path": "ai-demo/ai-demo",
@@ -2591,7 +2645,7 @@
 			]
 		},
 		{
-			"root": "pages/uni-ui",
+			"root": "examples/uni-ui",
 			"pages": [
 				{
 					"path": "time-format/time-format",
@@ -2708,7 +2762,7 @@
 			]
 		},
 		{
-			"root": "pages/CSS",
+			"root": "examples/CSS",
 			"pages": [
 				{
 					"path": "background/background-color",
@@ -3337,6 +3391,7 @@
 				// #endif
 			]
 		}
+	
 	],
 	"globalStyle": {
 		"pageOrientation": "auto",
@@ -3358,51 +3413,32 @@
 		// #endif
 	},
 	"tabBar": {
-		"color": "@tabBarColor",
-		"selectedColor": "@tabBarSelectedColor",
-		"borderStyle": "@tabBarBorderStyle",
-		"backgroundColor": "@tabBarBackgroundColor",
+		"color": "#7A7E83",
+		"selectedColor": "#007AFF",
+		"borderStyle": "black",
+		"backgroundColor": "#F8F8F8",
 		"list": [
 			{
-				"pagePath": "pages/tabBar/component",
-				"iconPath": "@tabBarComponentIconPath",
-				"selectedIconPath": "@tabBarComponentSelectedIconPath",
-				"text": "组件"
+				"pagePath": "pages/index/index",
+				"iconPath": "static/component.png",
+				"selectedIconPath": "static/componentHL.png",
+				"text": "首页"
 			},
 			{
-				"pagePath": "pages/tabBar/API",
-				"iconPath": "@tabBarAPIIconPath",
-				"selectedIconPath": "@tabBarAPISelectedIconPath",
-				"text": "接口"
-			},
-			{
-				"pagePath": "pages/tabBar/CSS",
-				"iconPath": "@tabBarCSSIconPath",
-				"selectedIconPath": "@tabBarCSSSelectedIconPath",
-				"text": "CSS"
-			},
-			{
-				"pagePath": "pages/tabBar/uni-ui",
-				"iconPath": "@tabBarUniUIIconPath",
-				"selectedIconPath": "@tabBarUniUISelectedIconPath",
-				"text": "uni-ui"
-			},
-			{
-				"pagePath": "pages/tabBar/template",
-				"iconPath": "@tabBarTemplateIconPath",
-				"selectedIconPath": "@tabBarTemplateSelectedIconPath",
-				"text": "模板"
+				"pagePath": "pages/mine/mine",
+				"iconPath": "static/template.png",
+				"selectedIconPath": "static/templateHL.png",
+				"text": "我的"
 			}
 		]
 	},
 	"condition": {
-		//模式配置，仅开发期间生效
-		"current": 0, //当前激活的模式(list 的索引项)
+		"current": 0,
 		"list": [
 			{
-				"name": "", //模式名称
-				"path": "", //启动页面，必选
-				"query": "" //启动参数，在页面的onLoad函数里面得到
+				"name": "",
+				"path": "",
+				"query": ""
 			}
 		]
 	},

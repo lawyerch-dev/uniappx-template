@@ -33,7 +33,7 @@ permission:
 
 ## 修改 pages.json
 
-新增页面必须同步注册：找到对应分包（如 `"root": "pages/template"`）的 `pages` 数组加一条 `{ "path": "...", "style": { "navigationBarTitleText": "..." } }`。保持 JSON 合法（允许条件编译注释）。
+新增页面必须同步注册：找到对应分包（如 `"root": "examples/template"`）的 `pages` 数组加一条 `{ "path": "...", "style": { "navigationBarTitleText": "..." } }`。保持 JSON 合法（允许条件编译注释）。
 
 ## 完成后自检
 

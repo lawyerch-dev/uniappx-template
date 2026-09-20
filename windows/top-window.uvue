@@ -1,7 +1,7 @@
 <template>
   <view class="top-window-header" :class="isDarkMode ? 'theme-dark' : 'theme-light'">
     <view class="left-header">
-      <navigator class="left-header" open-type="reLaunch" url="/pages/component/view/view">
+      <navigator class="left-header" open-type="reLaunch" url="/examples/component/view/view">
         <image src="/static/test-image/logo.png" class="logo" mode="heightFix"></image>
         <text>hello uni-app x</text>
       </navigator>
@@ -29,20 +29,20 @@
         },
         current: 0,
         indexPage: [{
-          tabBar: '/pages/tabBar/component',
-          indexPageUrl: '/pages/component/view/view'
+          tabBar: '/examples/tabBar/component',
+          indexPageUrl: '/examples/component/view/view'
         }, {
-          tabBar: '/pages/tabBar/API',
-          indexPageUrl: '/pages/API/get-app/get-app'
+          tabBar: '/examples/tabBar/API',
+          indexPageUrl: '/examples/API/get-app/get-app'
         }, {
-          tabBar: '/pages/tabBar/CSS',
-          indexPageUrl: '/pages/CSS/layout/width'
+          tabBar: '/examples/tabBar/CSS',
+          indexPageUrl: '/examples/CSS/layout/width'
         }, {
-          tabBar: '/pages/tabBar/uni-ui',
-          indexPageUrl: '/pages/uni-ui/time-format/time-format'
+          tabBar: '/examples/tabBar/uni-ui',
+          indexPageUrl: '/examples/uni-ui/time-format/time-format'
         }, {
-          tabBar: '/pages/tabBar/template',
-          indexPageUrl: '/pages/template/banner-tabs-feed-nested-scroll/banner-tabs-feed-nested-scroll'
+          tabBar: '/examples/tabBar/template',
+          indexPageUrl: '/examples/template/banner-tabs-feed-nested-scroll/banner-tabs-feed-nested-scroll'
         }] as IndexPageItem[]
       }
     },
@@ -64,10 +64,10 @@
           if (path === '/') {
             category = 'component'
             uni.redirectTo({
-              url: '/pages/component/view/view'
+              url: '/examples/component/view/view'
             })
             return
-          } else if (path.indexOf('/pages/tabBar') === 0) {
+          } else if (path.indexOf('/examples/tabBar') === 0) {
             const indexPageItem = this.indexPage.find(item => item.tabBar === path)
             if (!indexPageItem) {
               console.error('Invalid page path: ', path)

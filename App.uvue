@@ -39,7 +39,7 @@
       uni.getPrivacySetting({
         success(res1){
             if(res1.needAuthorization){
-              uni.openDialogPage({ url: '/pages/component/button/privacy' })
+              uni.openDialogPage({ url: '/examples/component/button/privacy' })
             }
         }
       })
@@ -51,7 +51,7 @@
 
   const getRedirectUrl = (scheme : string | null, ulink : string | null) : string | null => {
     //解析scheme或universal link启动直达页面：
-    //scheme格式：uniappx://redirect/pages/component/view/view?key=value  //其中redirect后为页面路径
+    //scheme格式：uniappx://redirect/examples/component/view/view?key=value  //其中redirect后为页面路径
     //universal link格式：https://uniappx.dcloud.net.cn/ulink/redirect.html?url=%2Fpages%2Fcomponent%2Fview%2Fview%3Fkey%3Dvalue  //通用链接路径需固定，?后面的url参数为直达页面路径，注意url字段值需做url编码（可使用encodeURIComponent方法）
     let url : string | null = null;
     if (null != scheme && scheme.length > 0) {

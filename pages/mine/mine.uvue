@@ -1,0 +1,29 @@
+<template>
+  <scroll-view style="flex: 1">
+    <view class="mine">
+      <text class="mine__title">我的</text>
+      <text class="mine__desc">占位页，后续放个人中心。</text>
+    </view>
+  </scroll-view>
+</template>
+
+<script setup lang="uts">
+</script>
+
+<style>
+  .mine {
+    padding: 16px;
+  }
+
+  .mine__title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .mine__desc {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #999999;
+  }
+</style>

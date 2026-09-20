@@ -9,11 +9,11 @@
 </template>
 
 <script lang="uts">
-  import componentPage from '@/pages/tabBar/component.uvue'
-  import API from '@/pages/tabBar/API.uvue'
-  import CSS from '@/pages/tabBar/CSS.uvue'
-  import templatePage from '@/pages/tabBar/template.uvue'
-  import uniUiPage from '@/pages/tabBar/uni-ui.uvue'
+  import componentPage from '@/examples/tabBar/component.uvue'
+  import API from '@/examples/tabBar/API.uvue'
+  import CSS from '@/examples/tabBar/CSS.uvue'
+  import templatePage from '@/examples/tabBar/template.uvue'
+  import uniUiPage from '@/examples/tabBar/uni-ui.uvue'
   import { state, setMatchLeftWindow, setActive, setLeftWinActive } from '@/store/index.uts'
   let isPcObserver
   export default {
@@ -82,10 +82,10 @@
             })
           } else {
             // 检查是否为首页
-            let isHome = newRoute.path === '/' && newRoute.meta?.route === 'pages/tabBar/component'
+            let isHome = newRoute.path === '/' && newRoute.meta?.route === 'examples/tabBar/component'
             if (isHome) {
               // 自动跳转到第一个子页面
-              const defaultPage = '/pages/component/view/view'
+              const defaultPage = '/examples/component/view/view'
               setLeftWinActive(defaultPage)
               setActive('componentPage')
               uni.redirectTo({ url: defaultPage })

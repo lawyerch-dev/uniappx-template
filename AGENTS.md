@@ -85,7 +85,7 @@
 
 本项目是官方最佳实践库，**先模仿再创作**：
 
-- 页面组件用法 → `pages/component/`、`pages/API/`、`pages/template/`
+- 页面组件用法 → `examples/component/`、`examples/API/`、`examples/template/`
 - 官方 UI 组件库写法 → `uni_modules/uni-ui-x/`（其组件本身即最佳实现）
 - 状态管理 → `store/index.uts`、`composables/useDark.uts`
 - 自定义组件骨架 → `components/page-head/page-head.uvue`、`components/boolean-data/`
