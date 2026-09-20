@@ -1,29 +1,638 @@
 <template>
-  <scroll-view style="flex: 1">
-    <view class="mine">
-      <text class="mine__title">我的</text>
-      <text class="mine__desc">占位页，后续放个人中心。</text>
+  <scroll-view style="flex: 1" :show-scrollbar="false">
+    <view class="uc" :class="darkModeClass">
+      <!-- Hero -->
+      <view class="uc__hero" :class="ready ? 'uc__hero--in' : ''">
+        <view class="uc__blob uc__blob--a" id="uc-blob-a"></view>
+        <view class="uc__blob uc__blob--b" id="uc-blob-b"></view>
+
+        <view class="uc__bar">
+          <text class="uc__bar-title">{{ t('mine.title') }}</text>
+          <view class="uc__bar-btn" hover-class="uc__bar-btn--press" @click="onTap(t('mine.service.settings'))">
+            <view class="uc__bar-dot"></view>
+            <view class="uc__bar-dot"></view>
+            <view class="uc__bar-dot"></view>
+          </view>
+        </view>
+
+        <view class="uc__profile">
+          <view class="uc__avatar-wrap" id="uc-avatar">
+            <image class="uc__avatar" src="/static/logo_square.jpeg"></image>
+          </view>
+          <view class="uc__pinfo">
+            <view class="uc__namerow">
+              <text class="uc__name">林清和</text>
+              <view class="uc__vip">
+                <text class="uc__vip-text">VIP 5</text>
+              </view>
+            </view>
+            <text class="uc__sign">{{ t('mine.sign') }}</text>
+          </view>
+        </view>
+
+        <view class="uc__stats">
+          <view class="uc__stat" v-for="s in stats" :key="s.key">
+            <text class="uc__stat-num">{{ s.value }}</text>
+            <text class="uc__stat-label">{{ t(s.labelKey) }}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 订单 -->
+      <view class="uc__card uc__card--first uc__card--d1" :class="ready ? 'uc__card--in' : ''">
+        <view class="uc__head">
+          <text class="uc__head-title">{{ t('mine.order.title') }}</text>
+          <view class="uc__head-more" hover-class="uc__head-more--press" @click="onTap(t('mine.order.all'))">
+            <text class="uc__head-moretext">{{ t('mine.order.all') }}</text>
+            <view class="uc__chev"></view>
+          </view>
+        </view>
+        <view class="uc__row">
+          <view class="uc__rowitem" v-for="o in orders" :key="o.key" hover-class="uc__rowitem--press" @click="onTap(t(o.labelKey))">
+            <view class="uc__tile" :class="o.cls">
+              <text class="uc__glyph">{{ t(o.glyphKey) }}</text>
+              <view class="uc__badge" v-if="o.count > 0">
+                <text class="uc__badge-text">{{ o.count }}</text>
+              </view>
+            </view>
+            <text class="uc__rowlabel">{{ t(o.labelKey) }}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 常用服务 -->
+      <view class="uc__card uc__card--d2" :class="ready ? 'uc__card--in' : ''">
+        <view class="uc__head">
+          <text class="uc__head-title">{{ t('mine.service.title') }}</text>
+        </view>
+        <view class="uc__grid">
+          <view class="uc__gitem" v-for="g in services" :key="g.key" hover-class="uc__gitem--press" @click="onTap(t(g.labelKey))">
+            <view class="uc__tile" :class="g.cls">
+              <text class="uc__glyph">{{ t(g.glyphKey) }}</text>
+            </view>
+            <text class="uc__glabel">{{ t(g.labelKey) }}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 设置：语言 / 主题 -->
+      <view class="uc__card uc__card--d3" :class="ready ? 'uc__card--in' : ''">
+        <view class="uc__line" hover-class="uc__line--press" @click="chooseLocale()">
+          <text class="uc__linelabel">{{ t('common.language') }}</text>
+          <view class="uc__lineval">
+            <text class="uc__linevaltext">{{ localeLabel(locale) }}</text>
+            <view class="uc__chev"></view>
+          </view>
+        </view>
+        <view class="uc__line" hover-class="uc__line--press" @click="chooseTheme()">
+          <text class="uc__linelabel">{{ t('common.theme') }}</text>
+          <view class="uc__lineval">
+            <text class="uc__linevaltext">{{ themeModeLabel(state.themeMode) }}</text>
+            <view class="uc__chev"></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 菜单 -->
+      <view class="uc__card uc__card--d4" :class="ready ? 'uc__card--in' : ''">
+        <view class="uc__line" v-for="(m, i) in menus" :key="m.key"
+              :class="i < menus.length - 1 ? 'uc__line--line' : ''"
+              hover-class="uc__line--press" @click="onTap(t(m.labelKey))">
+          <text class="uc__linelabel">{{ t(m.labelKey) }}</text>
+          <view class="uc__chev"></view>
+        </view>
+      </view>
+
+      <view class="uc__foot"></view>
     </view>
   </scroll-view>
 </template>
 
 <script setup lang="uts">
+  import { t, locale, setLocale, localeOptions, localeLabel } from '@/composables/useI18n.uts'
+  import { LocaleType } from '@/i18n/index.uts'
+  import { darkModeClass } from '@/composables/useDark.uts'
+  import { state, setThemeMode } from '@/store/index.uts'
+
+  type StatItem = { key: string, labelKey: string, value: string, target: number }
+  type OrderItem = { key: string, labelKey: string, glyphKey: string, cls: string, count: number }
+  type ServiceItem = { key: string, labelKey: string, glyphKey: string, cls: string }
+  type MenuItem = { key: string, labelKey: string }
+
+  const ready = ref(false)
+
+  const stats = reactive([
+    { key: 'following', labelKey: 'mine.stat.following', value: '0', target: 128 } as StatItem,
+    { key: 'followers', labelKey: 'mine.stat.followers', value: '0', target: 2048 } as StatItem,
+    { key: 'likes', labelKey: 'mine.stat.likes', value: '0', target: 13680 } as StatItem
+  ] as StatItem[])
+
+  const orders : OrderItem[] = [
+    { key: 'pay', labelKey: 'mine.order.pay', glyphKey: 'mine.order.pay.glyph', cls: 'uc__tile--violet', count: 2 } as OrderItem,
+    { key: 'send', labelKey: 'mine.order.send', glyphKey: 'mine.order.send.glyph', cls: 'uc__tile--blue', count: 0 } as OrderItem,
+    { key: 'receive', labelKey: 'mine.order.receive', glyphKey: 'mine.order.receive.glyph', cls: 'uc__tile--cyan', count: 1 } as OrderItem,
+    { key: 'rate', labelKey: 'mine.order.rate', glyphKey: 'mine.order.rate.glyph', cls: 'uc__tile--amber', count: 0 } as OrderItem
+  ]
+
+  const services : ServiceItem[] = [
+    { key: 'fav', labelKey: 'mine.service.fav', glyphKey: 'mine.service.fav.glyph', cls: 'uc__tile--rose' } as ServiceItem,
+    { key: 'history', labelKey: 'mine.service.history', glyphKey: 'mine.service.history.glyph', cls: 'uc__tile--indigo' } as ServiceItem,
+    { key: 'coupon', labelKey: 'mine.service.coupon', glyphKey: 'mine.service.coupon.glyph', cls: 'uc__tile--amber' } as ServiceItem,
+    { key: 'points', labelKey: 'mine.service.points', glyphKey: 'mine.service.points.glyph', cls: 'uc__tile--violet' } as ServiceItem,
+    { key: 'address', labelKey: 'mine.service.address', glyphKey: 'mine.service.address.glyph', cls: 'uc__tile--cyan' } as ServiceItem,
+    { key: 'support', labelKey: 'mine.service.support', glyphKey: 'mine.service.support.glyph', cls: 'uc__tile--green' } as ServiceItem,
+    { key: 'settings', labelKey: 'mine.service.settings', glyphKey: 'mine.service.settings.glyph', cls: 'uc__tile--slate' } as ServiceItem,
+    { key: 'more', labelKey: 'mine.service.more', glyphKey: 'mine.service.more.glyph', cls: 'uc__tile--blue' } as ServiceItem
+  ]
+
+  const menus : MenuItem[] = [
+    { key: 'member', labelKey: 'mine.menu.member' } as MenuItem,
+    { key: 'help', labelKey: 'mine.menu.help' } as MenuItem,
+    { key: 'about', labelKey: 'mine.menu.about' } as MenuItem
+  ]
+
+  const onTap = (label : string) : void => {
+    uni.showToast({ title: label, icon: 'none' })
+  }
+
+  const themeModeLabel = (mode : string) : string => {
+    if (mode == 'light') {
+      return t('common.theme.light')
+    }
+    if (mode == 'dark') {
+      return t('common.theme.dark')
+    }
+    return t('common.theme.system')
+  }
+
+  const chooseLocale = () : void => {
+    const items : string[] = localeOptions.map((l : LocaleType) : string => localeLabel(l))
+    uni.showActionSheet({
+      itemList: items,
+      success: (res) => {
+        const idx = res.tapIndex
+        if (idx >= 0 && idx < localeOptions.length) {
+          setLocale(localeOptions[idx])
+        }
+      }
+    })
+  }
+
+  const chooseTheme = () : void => {
+    const modes : string[] = ['system', 'light', 'dark']
+    const items : string[] = modes.map((m : string) : string => themeModeLabel(m))
+    uni.showActionSheet({
+      itemList: items,
+      success: (res) => {
+        const idx = res.tapIndex
+        if (idx >= 0 && idx < modes.length) {
+          setThemeMode(modes[idx])
+        }
+      }
+    })
+  }
+
+  let countTimer : number = 0
+
+  const startCount = () : void => {
+    let step = 0
+    countTimer = setInterval(() => {
+      step++
+      stats.forEach((s : StatItem) => {
+        const v = Math.round(s.target * step / 24)
+        s.value = (v >= s.target ? s.target : v).toString()
+      })
+      if (step >= 24) {
+        clearInterval(countTimer)
+      }
+    }, 28)
+  }
+
+  onReady(() => {
+    ready.value = true
+    startCount()
+
+    // 头像轻微浮动
+    uni.getElementById('uc-avatar')?.animate([
+      { transform: 'translateY(0px)' },
+      { transform: 'translateY(-6px)' }
+    ], { duration: 2200, direction: 'alternate', easing: 'ease-in-out', iterations: Infinity })
+
+    // 背景光斑呼吸
+    uni.getElementById('uc-blob-a')?.animate([
+      { opacity: 0.5, transform: 'scale(1)' },
+      { opacity: 0.9, transform: 'scale(1.15)' }
+    ], { duration: 3600, direction: 'alternate', easing: 'ease-in-out', iterations: Infinity })
+    uni.getElementById('uc-blob-b')?.animate([
+      { opacity: 0.45, transform: 'scale(1.1)' },
+      { opacity: 0.8, transform: 'scale(0.92)' }
+    ], { duration: 4400, direction: 'alternate', easing: 'ease-in-out', iterations: Infinity })
+  })
+
+  onBeforeUnmount(() => {
+    if (countTimer != 0) {
+      clearInterval(countTimer)
+    }
+  })
+
+  defineExpose({
+    chooseLocale,
+    chooseTheme,
+    setLocale,
+    setThemeMode
+  })
 </script>
 
 <style>
-  .mine {
-    padding: 16px;
+  .uc {
+    flex-direction: column;
+    min-height: 100%;
+    background-color: var(--page-bg);
   }
 
-  .mine__title {
+  /* ---------- Hero ---------- */
+  .uc__hero {
+    position: relative;
+    overflow: hidden;
+    padding: 18px 20px 56px 20px;
+    background-image: linear-gradient(135deg, var(--hero-from) 0%, var(--hero-mid) 48%, var(--hero-to) 100%);
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition-property: opacity, transform;
+    transition-duration: 460ms;
+    transition-timing-function: ease-out;
+  }
+
+  .uc__hero--in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .uc__blob {
+    position: absolute;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.22);
+  }
+
+  .uc__blob--a {
+    width: 180px;
+    height: 180px;
+    right: -50px;
+    top: -60px;
+  }
+
+  .uc__blob--b {
+    width: 130px;
+    height: 130px;
+    left: -40px;
+    bottom: -30px;
+  }
+
+  .uc__bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .uc__bar-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .uc__bar-btn {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 6px;
+    border-radius: 999px;
+  }
+
+  .uc__bar-btn--press {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .uc__bar-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    background-color: #ffffff;
+    margin-left: 3px;
+  }
+
+  .uc__profile {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 22px;
+  }
+
+  .uc__avatar-wrap {
+    width: 68px;
+    height: 68px;
+    border-radius: 999px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+  }
+
+  .uc__avatar {
+    width: 100%;
+    height: 100%;
+  }
+
+  .uc__pinfo {
+    flex: 1;
+    flex-direction: column;
+    margin-left: 14px;
+  }
+
+  .uc__namerow {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .uc__name {
     font-size: 20px;
     font-weight: bold;
-    color: #333333;
+    color: #ffffff;
   }
 
-  .mine__desc {
+  .uc__vip {
+    margin-left: 8px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background-image: linear-gradient(135deg, #ffe08a 0%, #f6b93b 100%);
+  }
+
+  .uc__vip-text {
+    font-size: 11px;
+    font-weight: bold;
+    color: #6b4b00;
+  }
+
+  .uc__sign {
+    margin-top: 6px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .uc__stats {
+    flex-direction: row;
+    margin-top: 26px;
+  }
+
+  .uc__stat {
+    flex: 1;
+    align-items: center;
+  }
+
+  .uc__stat-num {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .uc__stat-label {
+    margin-top: 4px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  /* ---------- 卡片 ---------- */
+  .uc__card {
+    margin: 0 16px 14px 16px;
+    padding: 16px;
+    border-radius: 18px;
+    background-color: var(--card-bg);
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--card-border);
+    box-shadow: 0 8px 24px var(--shadow-color);
+    opacity: 0;
+    transform: translateY(18px);
+    transition-property: opacity, transform;
+    transition-duration: 420ms;
+    transition-timing-function: ease-out;
+  }
+
+  .uc__card--first {
+    margin-top: -40px;
+  }
+
+  .uc__card--in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .uc__card--d1 {
+    transition-delay: 60ms;
+  }
+
+  .uc__card--d2 {
+    transition-delay: 130ms;
+  }
+
+  .uc__card--d3 {
+    transition-delay: 200ms;
+  }
+
+  .uc__card--d4 {
+    transition-delay: 270ms;
+  }
+
+  .uc__head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .uc__head-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-primary);
+  }
+
+  .uc__head-more {
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 6px;
+    border-radius: 8px;
+  }
+
+  .uc__head-more--press {
+    background-color: var(--chip-bg);
+  }
+
+  .uc__head-moretext {
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  /* ---------- 图标 tile ---------- */
+  .uc__tile {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .uc__glyph {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .uc__tile--indigo {
+    background-image: linear-gradient(135deg, #8b9cff, #6d5bff);
+  }
+
+  .uc__tile--violet {
+    background-image: linear-gradient(135deg, #c4b5fd, #8b5cf6);
+  }
+
+  .uc__tile--blue {
+    background-image: linear-gradient(135deg, #93c5fd, #3b82f6);
+  }
+
+  .uc__tile--cyan {
+    background-image: linear-gradient(135deg, #7dd3fc, #0ea5e9);
+  }
+
+  .uc__tile--green {
+    background-image: linear-gradient(135deg, #86efac, #22c55e);
+  }
+
+  .uc__tile--amber {
+    background-image: linear-gradient(135deg, #fcd34d, #f59e0b);
+  }
+
+  .uc__tile--rose {
+    background-image: linear-gradient(135deg, #fda4af, #f43f5e);
+  }
+
+  .uc__tile--slate {
+    background-image: linear-gradient(135deg, #cbd5e1, #64748b);
+  }
+
+  /* ---------- 订单行 ---------- */
+  .uc__row {
+    flex-direction: row;
+  }
+
+  .uc__rowitem {
+    flex: 1;
+    align-items: center;
+    padding: 6px 0;
+    border-radius: 12px;
+  }
+
+  .uc__rowitem--press {
+    background-color: var(--chip-bg);
+  }
+
+  .uc__badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background-color: #f43f5e;
+    align-items: center;
+    justify-content: center;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--card-bg);
+  }
+
+  .uc__badge-text {
+    font-size: 10px;
+    color: #ffffff;
+  }
+
+  .uc__rowlabel {
     margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* ---------- 服务宫格 ---------- */
+  .uc__grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .uc__gitem {
+    width: 25%;
+    align-items: center;
+    padding: 10px 0;
+    border-radius: 12px;
+  }
+
+  .uc__gitem--press {
+    background-color: var(--chip-bg);
+  }
+
+  .uc__glabel {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  /* ---------- 设置 / 菜单行 ---------- */
+  .uc__line {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 2px;
+  }
+
+  .uc__line--line {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--divider);
+  }
+
+  .uc__line--press {
+    background-color: var(--chip-bg);
+  }
+
+  .uc__linelabel {
     font-size: 14px;
-    color: #999999;
+    color: var(--text-primary);
+  }
+
+  .uc__lineval {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .uc__linevaltext {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-right: 6px;
+  }
+
+  .uc__chev {
+    width: 7px;
+    height: 7px;
+    transform: rotate(-45deg);
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: var(--text-tertiary);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--text-tertiary);
+  }
+
+  .uc__foot {
+    height: 24px;
   }
 </style>

@@ -1,0 +1,8 @@
+// 由 [key, value] 数组构建词典（Map 在多端均可靠）
+export const buildDict = (pairs : string[][]) : Map<string, string> => {
+  const m = new Map<string, string>()
+  pairs.forEach((p : string[]) => {
+    m.set(p[0], p[1])
+  })
+  return m
+}

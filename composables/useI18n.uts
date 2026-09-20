@@ -1,0 +1,7 @@
+// i18n 组合式入口：业务页面从这里取 t / locale / setLocale
+// 用法：
+//   import { t, locale, setLocale, localeOptions, localeLabel } from '@/composables/useI18n.uts'
+// 模板里直接 {{ t('mine.title') }}，切换 locale 后自动刷新
+import { locale, t, setLocale, localeOptions, localeLabel } from '@/i18n/index.uts'
+
+export { locale, t, setLocale, localeOptions, localeLabel }

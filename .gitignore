@@ -22,3 +22,14 @@ npm-debug.log*
 
 # 自动化测试运行器产物
 .hbuilderx/testCaseList.json
+
+# Python（技能脚本运行产物）
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+
+# 系统
+Thumbs.db

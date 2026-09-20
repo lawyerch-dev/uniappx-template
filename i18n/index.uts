@@ -1,0 +1,79 @@
+import { zhHans } from './zhHans.uts'
+import { zhHant } from './zhHant.uts'
+import { en } from './en.uts'
+
+export type LocaleType = 'zh-Hans' | 'zh-Hant' | 'en'
+
+const LOCALE_STORAGE_KEY = 'app-locale'
+
+/** 当前语言（响应式，页面里直接用即可自动刷新） */
+export const locale = ref('zh-Hans' as LocaleType)
+
+/** 可选语言列表 */
+export const localeOptions : LocaleType[] = ['zh-Hans', 'zh-Hant', 'en']
+
+/** 语言在自身语言下的显示名（不做翻译） */
+export const localeLabel = (l : LocaleType) : string => {
+  if (l == 'zh-Hant') {
+    return '繁體中文'
+  }
+  if (l == 'en') {
+    return 'English'
+  }
+  return '简体中文'
+}
+
+/** 把系统语言串归一化为受支持的语言 */
+const resolveLocale = (lang : string | null) : LocaleType => {
+  const l = (lang ?? '').toLowerCase()
+  if (l.indexOf('zh-hant') == 0 || l.indexOf('zh-tw') == 0 || l.indexOf('zh-hk') == 0 || l.indexOf('zh-mo') == 0) {
+    return 'zh-Hant'
+  }
+  if (l.indexOf('zh') == 0) {
+    return 'zh-Hans'
+  }
+  return 'en'
+}
+
+/** 取文案；缺失时回退为 key 本身，便于发现漏翻 */
+export const t = (key : string) : string => {
+  let dict = zhHans
+  if (locale.value == 'en') {
+    dict = en
+  } else if (locale.value == 'zh-Hant') {
+    dict = zhHant
+  }
+  const v = dict.get(key)
+  return v != null ? v : key
+}
+
+/** 手动切换语言并持久化 */
+export const setLocale = (l : LocaleType) : void => {
+  locale.value = l
+  uni.setStorageSync(LOCALE_STORAGE_KEY, l)
+}
+
+const hasSavedLocale = () : boolean => {
+  const saved = uni.getStorageSync(LOCALE_STORAGE_KEY)
+  return typeof saved == 'string' && (saved as string).length > 0
+}
+
+/** 应用启动时初始化语言：优先用户选择，其次系统语言 */
+export const initLocale = () : void => {
+  const saved = uni.getStorageSync(LOCALE_STORAGE_KEY)
+  if (typeof saved == 'string' && (saved as string).length > 0) {
+    locale.value = saved as LocaleType
+    return
+  }
+  locale.value = resolveLocale(uni.getAppBaseInfo().appLanguage)
+}
+
+/** 跟随系统语言变化（用户手动选过则不再跟随） */
+export const watchSystemLocale = () : void => {
+  uni.onLocaleChange((res) => {
+    if (hasSavedLocale()) {
+      return
+    }
+    locale.value = resolveLocale(res.locale)
+  })
+}

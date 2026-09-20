@@ -1,18 +1,21 @@
 <template>
   <scroll-view style="flex: 1">
-    <view class="home">
-      <text class="home__title">我的应用</text>
-      <text class="home__desc">业务首页。官方示例已归档到 examples/ 目录，可按需查看。</text>
+    <view class="home" :class="darkModeClass">
+      <text class="home__title">{{ t('home.title') }}</text>
+      <text class="home__desc">{{ t('home.desc') }}</text>
 
       <view class="home__card">
-        <text class="home__label">开发参考</text>
-        <button class="home__btn" @click="openExamples()">查看官方示例</button>
+        <text class="home__label">{{ t('home.devref') }}</text>
+        <button class="home__btn" hover-class="home__btn--press" @click="openExamples()">{{ t('home.btn.examples') }}</button>
       </view>
     </view>
   </scroll-view>
 </template>
 
 <script setup lang="uts">
+  import { t } from '@/composables/useI18n.uts'
+  import { darkModeClass } from '@/composables/useDark.uts'
+
   const openExamples = (): void => {
     uni.navigateTo({
       url: '/examples/tabBar/component'
@@ -27,37 +30,46 @@
 <style>
   .home {
     padding: 16px;
+    min-height: 100%;
+    background-color: var(--page-bg);
   }
 
   .home__title {
     font-size: 20px;
     font-weight: bold;
-    color: #333333;
+    color: var(--text-primary);
   }
 
   .home__desc {
     margin-top: 8px;
     font-size: 14px;
-    color: #999999;
+    color: var(--text-secondary);
   }
 
   .home__card {
     margin-top: 16px;
     padding: 16px;
-    border-radius: 8px;
-    background-color: #f8f8f8;
+    border-radius: 12px;
+    background-color: var(--card-bg);
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--card-border);
   }
 
   .home__label {
     font-size: 16px;
-    color: #333333;
+    color: var(--text-primary);
   }
 
   .home__btn {
     margin-top: 12px;
     font-size: 14px;
-    border-radius: 6px;
-    background-color: #007aff;
+    border-radius: 8px;
+    background-color: var(--accent);
     color: #ffffff;
+  }
+
+  .home__btn--press {
+    opacity: 0.85;
   }
 </style>

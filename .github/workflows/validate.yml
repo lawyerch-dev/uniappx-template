@@ -1,0 +1,19 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate-configs:
+    name: 校验配置文件
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 校验 manifest.json / package.json / theme.json / pages.json / platformConfig.json
+        run: node .github/scripts/validate-configs.mjs

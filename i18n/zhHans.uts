@@ -1,0 +1,62 @@
+// 简体中文
+import { buildDict } from './dict.uts'
+
+export const zhHans = buildDict([
+  ['app.name', '我的应用'],
+
+  ['tab.home', '首页'],
+  ['tab.mine', '我的'],
+
+  ['home.title', '我的应用'],
+  ['home.desc', '业务首页。官方示例已归档到 examples/ 目录，可按需查看。'],
+  ['home.devref', '开发参考'],
+  ['home.btn.examples', '查看官方示例'],
+
+  ['mine.title', '个人中心'],
+  ['mine.sign', '愿你走出半生，归来仍是少年'],
+  ['mine.stat.following', '关注'],
+  ['mine.stat.followers', '粉丝'],
+  ['mine.stat.likes', '获赞'],
+
+  ['mine.order.title', '我的订单'],
+  ['mine.order.all', '全部订单'],
+  ['mine.order.pay', '待付款'],
+  ['mine.order.send', '待发货'],
+  ['mine.order.receive', '待收货'],
+  ['mine.order.rate', '待评价'],
+
+  ['mine.service.title', '常用服务'],
+  ['mine.service.fav', '我的收藏'],
+  ['mine.service.history', '浏览历史'],
+  ['mine.service.coupon', '优惠券'],
+  ['mine.service.points', '积分商城'],
+  ['mine.service.address', '收货地址'],
+  ['mine.service.support', '联系客服'],
+  ['mine.service.settings', '设置'],
+  ['mine.service.more', '更多'],
+
+  ['mine.menu.member', '会员中心'],
+  ['mine.menu.help', '帮助与反馈'],
+  ['mine.menu.about', '关于我们'],
+
+  ['common.language', '语言'],
+  ['common.theme', '主题'],
+  ['common.theme.system', '跟随系统'],
+  ['common.theme.light', '浅色'],
+  ['common.theme.dark', '深色'],
+  ['common.toast.placeholder', '功能开发中'],
+
+  // tile 字形
+  ['mine.order.pay.glyph', '付'],
+  ['mine.order.send.glyph', '发'],
+  ['mine.order.receive.glyph', '收'],
+  ['mine.order.rate.glyph', '评'],
+  ['mine.service.fav.glyph', '藏'],
+  ['mine.service.history.glyph', '史'],
+  ['mine.service.coupon.glyph', '券'],
+  ['mine.service.points.glyph', '分'],
+  ['mine.service.address.glyph', '址'],
+  ['mine.service.support.glyph', '服'],
+  ['mine.service.settings.glyph', '设'],
+  ['mine.service.more.glyph', '更']
+])

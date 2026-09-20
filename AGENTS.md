@@ -98,7 +98,32 @@
 - `uts.md`（完整 UTS 语言约束，约 2400 行）→ **按需阅读**，写 UTS 细节不确定时先读。
 - `uvue.md`、`ucss.md`、`conditional-compilation.md`、`api.md`、`uni-app-x-best-practices.md` → 已通过 `opencode.json` 的 `instructions` 常驻上下文。
 
-## 8. 反模式清单（禁止项）
+## 8. 业务页面：多语言与多主题（必做）
+
+**`pages/` 下的业务页面默认必须同时支持多语言（i18n）与多主题（深/浅色）。** 示例页（`examples/`）不在此约束内。
+
+### 多语言
+- 文案统一走 `t('key')`，**禁止硬编码中文/英文**。
+- 入口：`import { t, locale, setLocale, localeOptions, localeLabel } from '@/composables/useI18n.uts'`
+- 词典：`i18n/zhHans.uts`、`i18n/zhHant.uts`、`i18n/en.uts`；新增语言需同时在 `i18n/index.uts` 的 `localeOptions` 登记。
+- `App.uvue` 启动时已调用 `initLocale()` + `watchSystemLocale()`；语言优先级：用户选择（storage）> 系统语言。
+- 需提供语言切换入口（如"我的"页设置行，用 `uni.showActionSheet`）。
+- **不要用 vue-i18n**（uni-app x 不支持）。
+
+### 多主题
+- 页面根容器必须带主题 class：`:class="darkModeClass"`（来自 `@/composables/useDark.uts`）。
+- 颜色一律用 `common/uni.css` 的语义变量，**禁止硬编码颜色**：
+  `--page-bg` `--card-bg` `--card-border` `--text-primary` `--text-secondary` `--text-tertiary` `--divider` `--chip-bg` `--accent` `--accent-soft` `--hero-from/--hero-mid/--hero-to` `--shadow-color`
+- 切换：`setThemeMode('system' | 'light' | 'dark')`（`@/store/index.uts`），`App.uvue` 的 `checkSystemTheme()` 已按模式生效。
+- 新增语义变量时，`.theme-light` 与 `.theme-dark` **两套都要补齐**。
+
+### 自检
+- [ ] 页面无硬编码文案（全走 `t()`）
+- [ ] 页面无硬编码颜色（全走 `var(--*)`）
+- [ ] 根容器带 `:class="darkModeClass"`
+- [ ] 深色 + 浅色、中文 + 英文下均正常
+
+## 9. 反模式清单（禁止项）
 
 1. 新建 `.vue` 文件、用选项式 API、用 mixin。
 2. 出现任何 `document` / `window` / `localStorage` / `v-html` / DOM 操作。
@@ -108,7 +133,7 @@
 6. 编造 `uni.*` API 或组件属性，未验证即使用。
 7. 把 `VUE3-VAPOR` 当成"只能用于 vapor"的页面层限制来过度裁剪功能——小程序/H5 端也要正常工作。
 
-## 9. 开发与验证工作流
+## 10. 开发与验证工作流
 
 - **编译/运行/发布只能在 HBuilderX 完成**（编译器在 HBuilderX 内，opencode 无法独立编译）。改完代码由用户在 HBuilderX 编译真机预览。
 - **自动化测试（已验证可用）**：页面级测试写在 `pages/**/*.test.js`（Jest + `program`/`page` 全局对象）。用 HBuilderX CLI 运行：
@@ -143,7 +168,7 @@
 
 - 达到 DoD 后，把"只有运行起来才知道"的坑、参数、特殊逻辑追加到根目录 `LESSONS_LEARNED.md`，避免重蹈覆辙。
 
-## 10. 官方文档（不确定就查这里）
+## 11. 官方文档（不确定就查这里）
 
 - 总览：https://doc.dcloud.net.cn/uni-app-x/
 - 蒸汽模式详解：https://doc.dcloud.net.cn/uni-app-x/app-vapor.html
