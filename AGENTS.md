@@ -2,6 +2,20 @@
 
 本文件约束所有 AI 在此仓库的编码行为。**先读完再动手，写代码前先看"参考标准答案"章节。**
 
+> **AI agent 兼容性**:本文件是项目唯一的规则源。仓库根目录同时存在以下工具的入口文件,均指向本文:
+>
+> | AI agent | 入口文件 |
+> |---|---|
+> | Codex、Claude Code、Amp、OpenCode | `AGENTS.md`（本文） |
+> | Claude Code | `CLAUDE.md` |
+> | Cursor | `.cursorrules` |
+> | Windsurf | `.windsurfrules` |
+> | GitHub Copilot | `.github/copilot-instructions.md` |
+> | Gemini CLI | `GEMINI.md` |
+> | Aider | `CONVENTIONS.md` |
+>
+> 任一文件被工具加载后,实际规则都在本文。**修改规则只改本文件即可,不要在其他入口写各工具特有的规则变体,否则会双源事实**。
+
 ## 1. 项目定位（最重要的认知）
 
 - 本工程是 **uni-app x**（uni-app 2.0，`hello-uniapp-x` 演示工程），**不是 uni-app 1.0**。
@@ -96,7 +110,9 @@
 `.opencode/rules/` 存放 DCloud 官方 [uni-app-x-ai-rules](https://gitcode.com/dcloud/uni-app-x-ai-rules) 的规则文件：
 
 - `uts.md`（完整 UTS 语言约束，约 2400 行）→ **按需阅读**，写 UTS 细节不确定时先读。
-- `uvue.md`、`ucss.md`、`conditional-compilation.md`、`api.md`、`uni-app-x-best-practices.md` → 已通过 `opencode.json` 的 `instructions` 常驻上下文。
+- `core-protocol.md`（opencode 专属 AI 行为协议：DoD、谋定而后动、无人值守）→ opencode 通过 `opencode.json` 常驻。
+
+> ⚠️ 其他 5 份规则已合并到本文（uvue / ucss / conditional-compilation / api / uni-app-x-best-practices）。如需查阅 DCloud 原始版本，从 [uni-app-x-ai-rules 仓库](https://gitcode.com/dcloud/uni-app-x-ai-rules) 直接拉取。
 
 ## 8. 业务页面：多语言与多主题（必做）
 
