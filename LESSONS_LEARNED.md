@@ -38,3 +38,46 @@
   // #endif
   ```
 - ⚠️ **浏览器 Service Worker 会缓存旧构建**：dev server 已更新但页面仍是旧版时，先 `navigator.serviceWorker.getRegistrations()` 注销 + 清 `caches`，再硬刷新。
+
+## 2026-09-20 `uni-page-body::after` 占位 50px（H5 端，仅顶部 tabBar 时生效）
+
+**症状**：mine 页底部出现大片灰色空白带（约 50px），iPhone 6/7/8 等小屏尤其明显——长内容被切一半，下面留一整段 `--page-bg` 色。
+
+**根因**：uni-app x H5 端内置 CSS：
+```css
+uni-app.uni-app--showtabbar uni-page-body::after {
+  content: ""; display: block; width: 100%;
+  height: calc(var(--tab-bar-height) + env(safe-area-inset-bottom));
+}
+```
+这是为**底部 fixed tabBar** 留的占位（避开 tabbar 遮挡）。但本项目 `pages.json` 同时配了 `tabBar`（在 `uni-top-window` 里渲染）和 `topWindow`（顶部状态栏），`uni-app--showtabbar` 类被加上，于是 `::after` 撑了 50px，可底部其实没有 fixed tabbar（`uni-tabbar.uni-tabbar-bottom` 渲染在 `top: 667, bottom: 717`，被推到 viewport 外），于是留下 50px 空白。
+
+**修复**（`common/uni.css` 末尾）：
+```css
+uni-app.uni-app--showtabbar uni-page-body::after {
+  height: 0; min-height: 0; content: none;
+}
+```
+注释里写明：以后若切回底部 fixed tabBar，需移除此规则。
+
+**调试手段**：用浏览器 DevTools 选中 `uni-page-body` 看 `::after` 的 `content` / `height`；选中 `uni-tabbar.uni-tabbar-bottom` 看 `bottom`（若 < 0 即被推到视口外）。
+
+## 2026-09-20 启动链路演示代码清理
+
+**症状**：首启 + 白屏偏长。
+
+**根因**（已清理）：`App.uvue` onLaunch 里跑 `uni.report`（统计上报）+ `uni.getPrivacySetting` + `getRedirectUrl`（scheme/ulink 解析 50 行）+ `setLifeCycleNum` 计数器；`main.uts` 里 `app.use(uniStat, ...)` 走 uni-stat 插件链（`Stat.getInstance()` + `init()`）。
+
+**清理动作**：
+- `App.uvue`: 删除 `uni.report` × 4（launch/show/hide/error）、`uni.getPrivacySetting` 弹窗、`getRedirectUrl` + 调用、`onAppShow/HiDe/LastPageBackPress/Exit` 演示逻辑、`setLifeCycleNum` 调用、`increaseLifeCycleNum` 导出、`console.log` × 5、`<style>` 演示用 `.global-text/.global-box/.global-important-*`。
+- `main.uts`: 删除 `uniStat` import + `app.use(uniStat, ...)` + `uniStatOptions` 配置对象。
+
+**注意不要动**：`store/index.uts` 里的 `lifeCycleNum` / `globalData` / `setLifeCycleNum` 等演示字段。`examples/*.test.js` 自动化测试大量依赖这些，删了就跑不动。本次只清"启动链路调用方"，字段保留。
+
+## 2026-09-20 卡片 stagger 入场动画的视觉陷阱
+
+**症状**：mine 页首屏入场时只看到前 2 张卡（订单 + 常用服务），下面"空白 + tabbar 半截"，被误判为"页面割裂"。
+
+**根因**：`transition-delay: 60/130/200/270ms` + `transition-duration: 420ms` → 全部就位要 ~690ms。200~500ms 中间帧只看到前 2 张，后 2 张 `opacity: 0`。
+
+**修复**（`pages/mine/mine.uvue` 样式段）：统一 `transition-delay: 0ms`、duration 260ms、上移距离 12px。**经验**：stagger 总时长控制在 300ms 内、无 stagger，或 stagger ≤ 2 段。
