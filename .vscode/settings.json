@@ -1,0 +1,54 @@
+{
+  // VS Code 配置：适配 uni-app 条件编译，抑制误报错误
+  "files.associations": {
+    "*.vue": "vue",
+    "*.nvue": "vue",
+    "*.scss": "scss",
+    "*.css": "css",
+    "manifest.json": "jsonc",
+    "pages.json": "jsonc"
+  },
+
+  // Volar 设置：关闭模板类型检查（uni-app 组件非标准 Vue 组件）
+  "vue.server.hybridMode": false,
+  "vue.inlayHints.missingProps": false,
+  "vue.inlayHints.inlineHandlerLeading": false,
+
+  // 搜索排除：减少无关文件干扰
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/uni_modules": true,
+    "**/.git": true,
+    "**/dist": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  },
+
+  // 文件排除
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  },
+
+  // SCSS 设置
+  "scss.validate": false,
+  "css.validate": false,
+
+  // 编辑器设置
+  "editor.formatOnSave": false,
+  "editor.wordWrap": "off",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+
+  // Prettier 配置
+  "prettier.printWidth": 180,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.tabWidth": 2,
+  "prettier.semi": false,
+  "prettier.bracketSpacing": false,
+
+  // 终端设置
+  "terminal.integrated.defaultProfile.windows": "Git Bash"
+}

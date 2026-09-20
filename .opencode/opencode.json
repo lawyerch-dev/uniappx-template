@@ -1,0 +1,18 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "AGENTS.md",
+    ".opencode/rules/uvue.md",
+    ".opencode/rules/ucss.md",
+    ".opencode/rules/conditional-compilation.md",
+    ".opencode/rules/api.md",
+    ".opencode/rules/uni-app-x-best-practices.md"
+  ],
+  "mcp": {
+    "uni-app-x": {
+      "type": "local",
+      "command": ["npx", "-y", "@dcloudio/uni-app-x-mcp"],
+      "enabled": true
+    }
+  }
+}

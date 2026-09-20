@@ -1,0 +1,163 @@
+<template>
+  <scroll-view style="flex: 1">
+    <view class="ai-demo">
+      <text class="ai-demo__title">AI 演示页</text>
+      <text class="ai-demo__desc">由 opencode 生成的 uni-app x 蒸汽模式示例，用于校验开发规范。</text>
+
+      <view class="ai-demo__card">
+        <text class="ai-demo__label">计数器：{{ data.count }}</text>
+        <view class="ai-demo__row">
+          <button class="ai-demo__btn" @click="decrease()">-1</button>
+          <button class="ai-demo__btn" @click="increase()">+1</button>
+        </view>
+        <text class="ai-demo__hint">计算属性（翻倍）：{{ doubled }}</text>
+      </view>
+
+      <view class="ai-demo__card">
+        <text class="ai-demo__label">待办列表</text>
+        <view class="ai-demo__row">
+          <input class="ai-demo__input" v-model="data.inputText" placeholder="输入待办内容" />
+          <button class="ai-demo__btn" @click="addTodo()">添加</button>
+        </view>
+        <view class="ai-demo__list">
+          <view class="ai-demo__item" v-for="(item, index) in data.todos" :key="item.id" @click="removeTodo(index)">
+            <text class="ai-demo__item-text">{{ index + 1 }}. {{ item.text }}</text>
+          </view>
+        </view>
+        <text class="ai-demo__hint" v-if="data.todos.length === 0">暂无待办，输入后点击添加</text>
+      </view>
+    </view>
+  </scroll-view>
+</template>
+
+<script setup lang="uts">
+  type TodoItem = {
+    id: number
+    text: string
+  }
+
+  type DataType = {
+    count: number
+    inputText: string
+    todos: TodoItem[]
+  }
+
+  const data = reactive({
+    count: 0,
+    inputText: '',
+    todos: [] as TodoItem[]
+  } as DataType)
+
+  const doubled = computed((): number => {
+    return data.count * 2
+  })
+
+  const increase = (): void => {
+    data.count++
+  }
+
+  const decrease = (): void => {
+    data.count--
+  }
+
+  const addTodo = (): void => {
+    const text = data.inputText.trim()
+    if (text === '') {
+      uni.showToast({
+        title: '请输入内容',
+        icon: 'none'
+      })
+      return
+    }
+    data.todos.push({
+      id: data.todos.length + 1,
+      text: text
+    } as TodoItem)
+    data.inputText = ''
+  }
+
+  const removeTodo = (index: number): void => {
+    data.todos.splice(index, 1)
+  }
+
+  defineExpose({
+    data
+  })
+</script>
+
+<style>
+  .ai-demo {
+    padding: 16px;
+  }
+
+  .ai-demo__title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .ai-demo__desc {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #999999;
+  }
+
+  .ai-demo__card {
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+  }
+
+  .ai-demo__label {
+    font-size: 16px;
+    color: #333333;
+  }
+
+  .ai-demo__row {
+    margin-top: 12px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .ai-demo__btn {
+    margin-right: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    background-color: #007aff;
+    color: #ffffff;
+  }
+
+  .ai-demo__input {
+    flex: 1;
+    height: 40px;
+    padding: 0 12px;
+    margin-right: 8px;
+    font-size: 14px;
+    border-radius: 6px;
+    background-color: #ffffff;
+  }
+
+  .ai-demo__hint {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #999999;
+  }
+
+  .ai-demo__list {
+    margin-top: 12px;
+  }
+
+  .ai-demo__item {
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    background-color: #ffffff;
+  }
+
+  .ai-demo__item-text {
+    font-size: 14px;
+    color: #333333;
+  }
+</style>

@@ -1,0 +1,21 @@
+# 编译输出
+unpackage/
+
+# 依赖
+node_modules/
+
+# 编辑器 / 系统
+.DS_Store
+.idea/
+*.swp
+
+# 日志
+*.log
+npm-debug.log*
+
+# 环境与密钥
+.env
+.env.local
+
+# 临时
+.tmp/
