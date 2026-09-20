@@ -1,0 +1,16 @@
+# Windsurf 规则入口
+
+> 本项目的 AI 编码规则统一在 [`AGENTS.md`](./AGENTS.md)。
+> 本文件仅为满足 Windsurf 工具的加载约定而存在,实际规则请阅读 AGENTS.md。
+
+## 项目速览
+
+- 框架:uni-app x(蒸汽模式 / Vapor),不是 uni-app 1.0
+- 语言:UTS 强类型,页面用 `.uvue`,逻辑用 `.uts`,**禁止 `.vue` / `.js` 业务逻辑**
+- 编译:仅 HBuilderX 真机/模拟器可编译,opencode 等其他工具无法独立编译
+- 验证:HBuilderX CLI 的 `launch web/logcat web`、`uniapp.test` 自动化测试
+- 经验沉淀:`LESSONS_LEARNED.md`(只有 DoD 通过后才追加)
+
+## 必须先读
+
+[`AGENTS.md`](./AGENTS.md) 的全部 11 节,尤其是反模式清单(第 9 节)和验证工作流(第 10 节)。

@@ -1,0 +1,14 @@
+# Cursor 规则入口
+
+> 本项目的 AI 编码规则统一在 [`AGENTS.md`](./AGENTS.md)。
+> 本文件仅为满足 Cursor 工具的加载约定而存在,实际规则请阅读 AGENTS.md。
+
+请在每次会话开始时主动读取 AGENTS.md。重点关注:
+
+- 第 1 节(项目定位:uni-app x 蒸汽模式,不是 uni-app 1.0)
+- 第 2 节(文件与语法铁律:`.uvue` / `.uts`、禁止裸 `any`、禁止 `var`)
+- 第 4 节(CSS 规范:仅支持简单 class 选择器,蒸汽模式约束强)
+- 第 9 节(反模式清单:不要用 `document` / `window` / `localStorage` / `v-html`)
+- 第 10 节(开发与验证工作流:HBuilderX 编译、自动化测试命令)
+
+**DoD 以 HBuilderX 实际编译运行为准,不是代码静态检查。**
