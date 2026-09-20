@@ -25,9 +25,14 @@
 	--border-color: rgba(255, 255, 255, 0.1);
 }
 
+/* ---- 业务语义变量：媒体查询方案（业务页面统一用这些）----
+ * 参考 iOS HIG (Human Interface Guidelines) — 系统感、克制、留白优先
+ * ------------------------------------------------------------ */
+
 /* ---- 业务语义变量：媒体查询方案（业务页面统一用这些）---- */
 @media (prefers-color-scheme: light) {
 	page {
+		/* ---- 颜色 ---- */
 		--page-bg: #f3f4fa;
 		--card-bg: #ffffff;
 		--card-border: rgba(15, 23, 42, 0.06);
@@ -36,17 +41,90 @@
 		--text-tertiary: #9ca3af;
 		--divider: rgba(15, 23, 42, 0.06);
 		--chip-bg: #f1f2f8;
-		--accent: #6d5bff;
-		--accent-soft: rgba(109, 91, 255, 0.12);
-		--hero-from: #6d5bff;
-		--hero-mid: #8b5cf6;
-		--hero-to: #4f8dfd;
-		--shadow-color: rgba(79, 70, 229, 0.14);
+		--accent: #007aff;
+		--accent-soft: rgba(0, 122, 255, 0.10);
+		--hero-from: #007aff;
+		--hero-mid: #2f8cff;
+		--hero-to: #5aa9ff;
+		--shadow-color: rgba(15, 23, 42, 0.06);
+
+		/* ---- Spacing scale (iOS HIG: 4/8/12/16/20/24/32/40) ---- */
+		/* 原始值，AI 写页面时优先用语义别名 --space-xs/sm/md/lg/xl/2xl/3xl */
+		--space-1:  4px;
+		--space-2:  8px;
+		--space-3: 12px;
+		--space-4: 16px;
+		--space-5: 20px;
+		--space-6: 24px;
+		--space-8: 32px;
+		--space-10: 40px;
+		--space-12: 48px;
+		--space-16: 64px;
+		/* 语义别名：写页面时优先用这些 */
+		--space-xs:  var(--space-1);
+		--space-sm:  var(--space-2);
+		--space-md:  var(--space-3);
+		--space-lg:  var(--space-4);
+		--space-xl:  var(--space-5);
+		--space-2xl: var(--space-6);
+		--space-3xl: var(--space-8);
+
+		/* ---- Radius scale (iOS 卡片 10~14px) ---- */
+		--radius-sm:   6px;   /* 小标签 */
+		--radius-md:   10px;  /* 按钮、输入框 */
+		--radius-lg:   14px;  /* 卡片（最常用） */
+		--radius-xl:   20px;  /* 大卡片、底部弹出 */
+		--radius-2xl:  28px;  /* 顶部圆角 hero */
+		--radius-pill: 999px; /* 头像、徽章 */
+
+		/* ---- Typography scale (iOS Dynamic Type) ---- */
+		--type-caption:    11px;  /* 最弱注释 */
+		--type-footnote:   12px;  /* 次要标签 */
+		--type-subhead:    13px;  /* 行尾说明 */
+		--type-body:       15px;  /* 正文 (iOS 默认 17，按 mobile 缩 12.5%) */
+		--type-callout:    16px;  /* 强调正文 */
+		--type-headline:   17px;  /* 列表标题 */
+		--type-title-3:    20px;  /* 卡片大标题 */
+		--type-title-2:    22px;  /* 二级页面标题 */
+		--type-title-1:    28px;  /* 一级页面标题 */
+		--type-large-title:34px;  /* 营销/Hero */
+		--type-weight-regular: 400;
+		--type-weight-semibold: 600;
+		--type-weight-bold:     700;
+
+		/* ---- Motion scale (iOS 反馈时长) ---- */
+		--motion-fast:  160ms;  /* hover/press 反馈 */
+		--motion-base:  240ms;  /* 卡片入场、状态切换 */
+		--motion-slow:  360ms;  /* 页面级过渡 */
+		--motion-ease:  cubic-bezier(0.22, 1, 0.36, 1);  /* iOS 风格 ease-out */
+
+		/* ---- Elevation (iOS 倾向靠层次而非阴影) ---- */
+		--elev-0: none;
+		--elev-1: 0 1px 2px rgba(15, 23, 42, 0.06);     /* 悬浮小元素 */
+		--elev-2: 0 2px 8px rgba(15, 23, 42, 0.08);     /* 卡片（推荐） */
+		--elev-3: 0 8px 24px rgba(15, 23, 42, 0.10);    /* 弹层、底部弹窗 */
+		--elev-4: 0 16px 40px rgba(15, 23, 42, 0.14);   /* 模态框 */
+
+		/* ---- Opacity (iOS 反馈常用值) ---- */
+		--opacity-press: 0.7;     /* 按压态（按钮、tab） */
+		--opacity-disabled: 0.4;  /* 禁用态 */
+		--opacity-overlay: 0.55;  /* 蒙层 */
+
+		/* ---- Component-level aliases (页面可直接引用) ---- */
+		--card-pad-x:    var(--space-4);
+		--card-pad-y:    var(--space-3);
+		--card-radius:   var(--radius-lg);
+		--card-gap:      var(--space-3);
+		--card-elev:     var(--elev-2);
+		--list-item-h:   44px;     /* iOS 最小可点击区域 */
+		--btn-radius:    var(--radius-md);
+		--press-scale:   0.97;     /* 按压反馈 */
 	}
 }
 
 @media (prefers-color-scheme: dark) {
 	page {
+		/* ---- 颜色 ---- */
 		--page-bg: #14151c;
 		--card-bg: #1e2029;
 		--card-border: rgba(255, 255, 255, 0.08);
@@ -55,12 +133,75 @@
 		--text-tertiary: #6b7280;
 		--divider: rgba(255, 255, 255, 0.08);
 		--chip-bg: #262835;
-		--accent: #8b7dff;
-		--accent-soft: rgba(139, 125, 255, 0.18);
-		--hero-from: #4b3fd6;
-		--hero-mid: #6d4fd6;
-		--hero-to: #3a6fd6;
+		--accent: #5ac8fa;
+		--accent-soft: rgba(90, 200, 250, 0.18);
+		--hero-from: #007aff;
+		--hero-mid: #2f8cff;
+		--hero-to: #5aa9ff;
 		--shadow-color: rgba(0, 0, 0, 0.45);
+
+		/* ---- Spacing scale (跨主题一致) ---- */
+		--space-1:  4px;     --space-xs:  var(--space-1);
+		--space-2:  8px;     --space-sm:  var(--space-2);
+		--space-3: 12px;     --space-md:  var(--space-3);
+		--space-4: 16px;     --space-lg:  var(--space-4);
+		--space-5: 20px;     --space-xl:  var(--space-5);
+		--space-6: 24px;     --space-2xl: var(--space-6);
+		--space-8: 32px;     --space-3xl: var(--space-8);
+		--space-10: 40px;
+		--space-12: 48px;
+		--space-16: 64px;
+
+		/* ---- Radius (跨主题一致) ---- */
+		--radius-sm:   6px;
+		--radius-md:   10px;
+		--radius-lg:   14px;
+		--radius-xl:   20px;
+		--radius-2xl:  28px;
+		--radius-pill: 999px;
+
+		/* ---- Typography (跨主题一致) ---- */
+		--type-caption:    11px;
+		--type-footnote:   12px;
+		--type-subhead:    13px;
+		--type-body:       15px;
+		--type-callout:    16px;
+		--type-headline:   17px;
+		--type-title-3:    20px;
+		--type-title-2:    22px;
+		--type-title-1:    28px;
+		--type-large-title:34px;
+		--type-weight-regular: 400;
+		--type-weight-semibold: 600;
+		--type-weight-bold:     700;
+
+		/* ---- Motion (跨主题一致) ---- */
+		--motion-fast:  160ms;
+		--motion-base:  240ms;
+		--motion-slow:  360ms;
+		--motion-ease:  cubic-bezier(0.22, 1, 0.36, 1);
+
+		/* ---- Elevation (深色阴影更强) ---- */
+		--elev-0: none;
+		--elev-1: 0 1px 2px rgba(0, 0, 0, 0.30);
+		--elev-2: 0 2px 8px rgba(0, 0, 0, 0.36);
+		--elev-3: 0 8px 24px rgba(0, 0, 0, 0.45);
+		--elev-4: 0 16px 40px rgba(0, 0, 0, 0.55);
+
+		/* ---- Opacity (跨主题一致) ---- */
+		--opacity-press: 0.7;
+		--opacity-disabled: 0.4;
+		--opacity-overlay: 0.65;
+
+		/* ---- Component-level aliases ---- */
+		--card-pad-x:    var(--space-4);
+		--card-pad-y:    var(--space-3);
+		--card-radius:   var(--radius-lg);
+		--card-gap:      var(--space-3);
+		--card-elev:     var(--elev-2);
+		--list-item-h:   44px;
+		--btn-radius:    var(--radius-md);
+		--press-scale:   0.97;
 	}
 }
 

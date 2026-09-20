@@ -136,9 +136,222 @@
 - 老版动态 class 方案（`.theme-light`/`.theme-dark`）仅为兼容示例页保留，**新页面不要用**。
 - 文档：https://doc.dcloud.net.cn/uni-app-x/api/theme-change.html
 
-### 自检
+### 8.5 业务页面：设计系统（iOS HIG 锚点）
+
+**本项目视觉风格基准是 iOS Human Interface Guidelines（HIG）** ——系统感、克制、留白优先。所有业务页面必须按本节规范产出，禁止凭感觉写 px / 字号 / 颜色 / 阴影。
+
+#### 美学锚点（写新页面前先看）
+
+| 维度 | iOS HIG 取值 | 对应 token |
+|---|---|---|
+| 主色 | 系统蓝 `#007AFF`（与 native nav / tabBar 同源） | `--accent` |
+| 主背景 | 极淡灰白 `#F2F2F7` 系列 | `--page-bg` |
+| 卡片 | 白底 + 14px 圆角 + 几乎不用阴影（靠层次） | `--card-bg` + `--card-radius` + `--elev-2` |
+| 圆角 | 卡片 14 / 按钮 10 / 头像 pill | `--radius-lg` / `--radius-md` / `--radius-pill` |
+| 字重 | 不超过 2 种：标题 600、正文 400 | `--type-weight-semibold` / `--type-weight-regular` |
+| 阴影 | 弱阴影、深色用更深阴影；默认 none | `--elev-0` ~ `--elev-4` |
+| 按压反馈 | `scale(0.97) + opacity 0.7`（约 160ms） | `--press-scale` + `--opacity-press` |
+| 间距节奏 | 4 / 8 / 12 / 16 / 24 / 32 | `--space-1/2/3/4/6/8` |
+| 字号阶梯 | caption 11 / footnote 12 / subhead 13 / body 15 / callout 16 / headline 17 / title-3 20 / title-2 22 / title-1 28 / large-title 34 | `--type-*` |
+
+#### 字号阶梯（type scale）
+
+页面文字**只能**用以下 10 档之一，禁止 14px / 18px / 19px 等"中间值"：
+
+```text
+caption    11px  → 最小注释、tab 角标、版权
+footnote   12px  → 次要标签、列表元数据
+subhead    13px  → 行尾说明文字
+body       15px  → 正文（首选）
+callout    16px  → 强调正文
+headline   17px  → 列表项标题
+title-3    20px  → 卡片大标题（如"我的订单"）
+title-2    22px  → 二级页面标题
+title-1    28px  → 一级页面标题
+large-title 34px → 营销页 hero
+```
+
+**字重**：标题用 `--type-weight-semibold` (600)，正文用 `--type-weight-regular` (400)；**禁用 500 / 700 / 800**（iOS 不用过粗字重）。
+
+#### 间距阶梯（spacing scale）
+
+页面间距**只能**用以下 8 档之一，禁止 6px / 10px / 14px / 18px / 20px 等"中间值"：
+
+```text
+xs   4px   → 极小间隙（图标与文字）
+sm   8px   → 紧凑元素之间
+md   12px  → 列表项与列表项
+lg   16px  → 卡片 padding、段落间距（最常用）
+xl   20px  → 区块间距
+2xl  24px  → 大区块间距
+3xl  32px  → 页面边距、卡片组间隔
+4xl  40px+ → Hero 区域间距
+```
+
+**卡片推荐 padding**：`--card-pad-x` (16) 横向 + `--card-pad-y` (12) 纵向。
+**页面左右边距**：固定 `--space-lg` (16px)，与卡片对齐。
+
+#### 圆角阶梯（radius scale）
+
+```text
+sm    6px   → 小标签、徽章内
+md   10px   → 按钮、输入框、小卡片（默认）
+lg   14px   → 标准卡片（最常用）
+xl   20px   → 大卡片、底部弹出
+2xl  28px   → 顶部圆角 hero
+pill 999px  → 头像、胶囊按钮
+```
+
+#### 动效时长（motion scale）
+
+```text
+fast  160ms  → hover / press 反馈
+base  240ms  → 卡片入场、状态切换、toast
+slow  360ms  → 页面级过渡、模态弹出
+ease        → cubic-bezier(0.22, 1, 0.36, 1) — iOS 风格 ease-out
+```
+
+**stagger 入场总时长 ≤ 300ms**：超过 300ms 会出现"卡片还没出现"的空白感（见 `LESSONS_LEARNED.md` 卡片 stagger 入场陷阱）。建议：全部用 `--motion-base` + `transition-delay: 0`（无 stagger），或最多 2 段 stagger。
+
+#### 阴影 / 高度（elevation scale）
+
+iOS 风格**弱阴影**，靠背景层次区分而非阴影。卡片默认 `--elev-0`（无阴影），需要悬浮时才用 `--elev-1` / `--elev-2`：
+
+```text
+elev-0 none                 → 默认（绝大多数卡片）
+elev-1 0 1px 2px ...0.06    → 悬浮小元素
+elev-2 0 2px 8px ...0.08    → 卡片悬浮态（推荐）
+elev-3 0 8px 24px ...0.10   → 弹层、底部弹窗
+elev-4 0 16px 40px ...0.14  → 模态框、悬浮操作面板
+```
+
+**规则**：卡片默认无阴影；hover/press 时短暂出现 `--elev-1`，浮动在更高位置的元素用 `--elev-3`。
+
+#### 交互态（state scale）
+
+| 状态 | 推荐表现 | 实现 |
+|---|---|---|
+| press 按压 | scale(0.97) + opacity 0.7 | `hover-class="xxx--press"` + CSS `transform: scale(var(--press-scale)); opacity: var(--opacity-press)` |
+| hover 悬停（指针设备） | 仅背景轻变（`var(--chip-bg)`） | `hover-class="xxx--hover"` |
+| disabled 禁用 | opacity 0.4 + `pointer-events: none` | CSS `opacity: var(--opacity-disabled)` |
+| loading 加载中 | 不阻塞布局的骨架或 spinner | `<uni-load-more>` 或自家 spinner |
+
+#### 排版规则
+
+- 卡片标题：字号 `--type-title-3` (20) + 字重 600 + 颜色 `--text-primary`
+- 列表项：字号 `--type-headline` (17) + 字重 400 + 颜色 `--text-primary`，最小高度 `--list-item-h` (44px)（HIG 最小可点击区域）
+- 辅助文字：字号 `--type-footnote` (12) + 字重 400 + 颜色 `--text-secondary`
+- 行高：iOS 文本默认 1.4~1.5 倍；标题 1.2~1.3 倍
+
+#### 跨平台兼容性矩阵（核心约束，必看）
+
+**目标平台**：Web / 微信小程序（MP-WEIXIN）/ iOS App / HarmonyOS App（蒸汽模式）。Android App 代码已就绪但暂不发布，需保持兼容。
+
+设计 token 跨平台使用必须遵守下表（数据来源：uni-app x 官方文档，HBuilderX 5.25+ 蒸汽模式为基准）：
+
+| 写法 | Web | 微信小程序 | iOS App | Android App | Harmony App | 备注 |
+|---|---|---|---|---|---|---|
+| `@media (prefers-color-scheme)` | ✅ | ✅ | ✅ | ✅ | ✅ | **必须用这个**做深色适配，不要切 class |
+| `var(--*)` 引用 token | ✅ 4.0+ | ✅ 4.41+ | ✅ 4.11+ | ⚠️ 4.0+ 需 VAPOR 5.25+ 全支持 | ✅ 4.61+ | **不能用 `:root`**，要用 `page` 选择器 |
+| `rgba()` 颜色函数 | ✅ | ✅ | ✅ | ✅ | ✅ | token 值优先用 rgba 形式 |
+| `transition-timing-function: cubic-bezier(...)` | ✅ | ✅ | ✅ 4.13+ | ✅ 4.13+ | ⚠️ 5.14+ | 保守起见可降级为 `ease`/`ease-in-out` |
+| `transition` 简写 + `var()` | ✅ | ✅ | ❌ VDOM / ⚠️ VAPOR 仅长写支持 | ❌ / ⚠️ | ❌ / ⚠️ | **必须展开写** `transition-property`/`-duration`/`-timing-function` |
+| `box-shadow` | ✅ | ✅ | ✅ | ✅ | ✅ | hero/卡片默认无阴影，需要时用 `--elev-*` |
+| `linear-gradient` / `background-image` | ✅ | ✅ | ✅ | ✅ | ✅ | 但 **`flatten` 节点不支持**，hero 不能加 `flatten` |
+| `border-radius` 圆角 | ✅ | ✅ | ✅ | ✅ | ✅ | 用 `--radius-*` |
+| `font-size` / `font-weight` | ✅ | ✅ | ✅ | ✅ | ✅ | 仅在 `<text>` / `<button>` 上写 |
+| `padding` / `margin` 简写 + `var()` | ✅ | ✅ | ❌ VDOM / ⚠️ VAPOR 长写 | ❌ / ⚠️ | ❌ / ⚠️ | **必须展开** `padding-top`/`-right`/`-bottom`/`-left` |
+
+##### 跨平台写法铁律（写样式前先看）
+
+1. **不要用 `:root` 定义变量**——App 平台不支持。改用 `page` 选择器：
+   ```css
+   /* ✅ 跨平台 */
+   @media (prefers-color-scheme: light) { page { --accent: #007AFF; } }
+
+   /* ❌ App 不支持 */
+   :root { --accent: #007AFF; }
+   ```
+
+2. **不要写 `transition` / `padding` / `margin` 简写**——App VAPOR 仅长写支持 `var()`：
+   ```css
+   /* ✅ 跨平台 */
+   transition-property: opacity;
+   transition-duration: var(--motion-base);
+   transition-timing-function: var(--motion-ease);
+   padding-top: var(--space-md);
+   padding-bottom: var(--space-md);
+
+   /* ❌ App 不生效 */
+   transition: opacity var(--motion-base) var(--motion-ease);
+   padding: var(--space-md) 0;
+   ```
+
+3. **不要把 `linear-gradient` 背景放在 `flatten` 节点上**——`flatten` 不支持 `background-image`：
+   ```css
+   /* ✅ 跨平台 */
+   <view class="hero">...</view>  /* .hero 用 background-image */
+   <view class="card" flatten>...</view>  /* flatten 仅用于纯色简单节点 */
+   ```
+
+4. **不要写 `--accent-soft: #007AFF10`**——App 平台部分版本不支持 `#RRGGBBAA` 8 位十六进制：
+   ```css
+   /* ✅ 跨平台 */
+   --accent-soft: rgba(0, 122, 255, 0.10);
+
+   /* ⚠️ App 兼容性差 */
+   --accent-soft: #007AFF10;
+   ```
+
+5. **`transition-timing-function: cubic-bezier(...)` 在 HarmonyOS (VAPOR) 需 5.14+**——若目标设备 HarmonyOS 版本不可控，用枚举 `ease` / `ease-in-out` 替代。
+
+6. **`cubic-bezier()` 不能写在 `transition` 简写里**——同 2，必须分开写。
+
+7. **不要给拍平节点（`flatten`）加 `box-shadow`**——拍平节点不支持部分 CSS。box-shadow 给非拍平节点即可。
+
+8. **hover/press 反馈用 `hover-class` + `transition-property`**，不要用 `:hover` 伪类（蒸汽模式不支持）：
+   ```vue
+   <view class="card" hover-class="card--press"></view>
+   ```
+   ```css
+   .card { transition-property: transform, opacity; transition-duration: var(--motion-fast); }
+   .card--press { opacity: var(--opacity-press); }
+   ```
+
+##### 平台能力速查（不要凭感觉）
+
+| 想做的事 | 正确做法 | 错误做法 |
+|---|---|---|
+| 暗黑主题 | `@media (prefers-color-scheme)` + `var(--*)` | `.theme-dark` 动态切 class（闪烁） |
+| 按压反馈 | `hover-class` + `transition-property` + `opacity` | `:hover` 伪类 |
+| 入场动画 | `transition-property: opacity, transform` + `--motion-base` | `@keyframes`（App 端 CSS 不支持） |
+| 主题切换（App） | `uni.setAppTheme({ theme: 'light'\|'dark'\|'auto' })` | 切 class |
+| 跟随系统主题（App） | `manifest.app.defaultAppTheme: "auto"` + `@media` | 手动写 JS 监听 osTheme |
+| 跟随宿主主题（Web/小程序） | `manifest.web/mp-weixin.darkmode: true` + `@media` | 手动监听 hostTheme |
+| 跨页面状态 | `uni.$emit`/`uni.$on` + `store/index.uts` reactive | props 钻洞 |
+| 全局样式 | `common/uni.css` 的 `@media` 块定义 token，页面用 `var(--*)` | 在每个页面硬编码颜色/字号 |
+| 深色检测（业务逻辑） | `uni.getAppBaseInfo().appTheme` (App) / `hostTheme` (Web/小程序) | `prefers-color-scheme` JS 监听（不存在此 API） |
+
+#### 禁止的"AI 凭感觉"反模式
+
+1. ❌ 字号用 14px / 18px / 19px（必须从 10 档阶梯选）
+2. ❌ 间距用 6px / 10px / 14px / 18px / 20px（必须从 8 档阶梯选）
+3. ❌ 圆角用 8px / 12px / 16px（必须从 6 档阶梯选）
+4. ❌ 阴影用 `box-shadow: 0 4px 16px rgba(0,0,0,0.1)`（必须从 5 档 elevation 选）
+5. ❌ 动画用 `transition: all 0.3s`（必须从 3 档 motion 选，并指定属性）
+6. ❌ 用纯紫 `#6d5bff` / 纯粉 `#ec4899` 做主色（用 `--accent` 即 iOS 蓝）
+7. ❌ 多个 tile 用 5 种不同渐变色做"视觉丰富"（用 `--accent-soft` 单色）
+8. ❌ 卡片间距用随机数值（如 13px / 17px）
+9. ❌ 字重用 500 / 700 / 800（只用 400 / 600）
+
+#### 自检
+
 - [ ] 页面无硬编码文案（全走 `t()`）
 - [ ] 页面无硬编码颜色（全走 `var(--*)`）
+- [ ] 页面无硬编码间距/圆角/字号/阴影/动效（全走 `var(--space-*)` / `var(--radius-*)` / `var(--type-*)` / `var(--elev-*)` / `var(--motion-*)`）
+- [ ] 字号只在 10 档阶梯中选
+- [ ] 间距只在 8 档阶梯中选
+- [ ] 圆角只在 6 档阶梯中选
 - [ ] 深色 + 浅色、中文 + 英文下均正常
 
 ## 9. 反模式清单（禁止项）

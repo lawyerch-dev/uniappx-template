@@ -30,47 +30,48 @@
 
 <style>
   .home {
-    padding: 16px;
+    padding: var(--space-lg);
     min-height: 100%;
     background-color: var(--page-bg);
   }
 
   .home__title {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: var(--type-title-3);
+    font-weight: var(--type-weight-semibold);
     color: var(--text-primary);
   }
 
   .home__desc {
-    margin-top: 8px;
-    font-size: 14px;
+    margin-top: var(--space-sm);
+    font-size: var(--type-body);
     color: var(--text-secondary);
   }
 
   .home__card {
-    margin-top: 16px;
-    padding: 16px;
-    border-radius: 12px;
+    margin-top: var(--space-lg);
+    padding: var(--card-pad-y) var(--card-pad-x);
+    border-radius: var(--card-radius);
     background-color: var(--card-bg);
     border-width: 1px;
     border-style: solid;
     border-color: var(--card-border);
+    box-shadow: var(--card-elev);
   }
 
   .home__label {
-    font-size: 16px;
+    font-size: var(--type-callout);
     color: var(--text-primary);
   }
 
   .home__btn {
-    margin-top: 12px;
-    font-size: 14px;
-    border-radius: 8px;
+    margin-top: var(--space-md);
+    font-size: var(--type-body);
+    border-radius: var(--btn-radius);
     background-color: var(--accent);
     color: #ffffff;
   }
 
   .home__btn--press {
-    opacity: 0.85;
+    opacity: var(--opacity-press);
   }
 </style>
